@@ -1,0 +1,20 @@
+﻿<Window x:Class="CronosHistory.HistoryTime"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CronosHistory"
+        mc:Ignorable="d"
+        Title="History Time" Height="272.507" Width="352">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="194*"/>
+            <RowDefinition Height="23*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <StackPanel x:Name="stkHistorial"/>
+        </ScrollViewer>
+        <CheckBox x:Name="ckSaltarConfirmacion" Content="Eliminar al hacer clic" Grid.Row="2" IsChecked="False" />
+    </Grid>
+</Window>
