@@ -43,8 +43,8 @@ namespace CronosHistory
         }
         public ItemHistorialTime(HistoryTime parent,XmlNode nodoData):this(parent)
         {
-            Inicio = DateTime.Parse(nodoData.ChildNodes[(int)XmlCampos.Inicio].InnerText);
-            Tiempo = TimeSpan.Parse(nodoData.ChildNodes[(int)XmlCampos.Tiempo].InnerText);
+            Inicio = new DateTime(Convert.ToInt64(nodoData.ChildNodes[(int)XmlCampos.Inicio].InnerText));
+            Tiempo =new TimeSpan(Convert.ToInt64(nodoData.ChildNodes[(int)XmlCampos.Tiempo].InnerText)); ;
             RichDescription = nodoData.ChildNodes[(int)XmlCampos.Descripcion].InnerText.DescaparCaracteresXML();
 
         }
@@ -64,7 +64,7 @@ namespace CronosHistory
             get { return  DateTime.Parse(txtFechaInicio.Text); }
             set
             {
-                txtFechaInicio.Text = value.ToShortDateString();
+                txtFechaInicio.Text = value.ToString().Replace(" ","\n");
             }
         }
         public TimeSpan Tiempo
@@ -94,9 +94,9 @@ namespace CronosHistory
         {
             XmlDocument xmlDoc = new XmlDocument();
             text nodo = "<ItemHistory>";
-            nodo &= (text)"<FechaInicio>" & txtFechaInicio.Text & "</FechaInicio>";
+            nodo &= (text)"<FechaInicio>" & Inicio.Ticks & "</FechaInicio>";
             nodo&= (text)"<Descripcion>" & RichDescription.EscaparCaracteresXML() & "</Descripcion>";
-            nodo &= (text)"<Tiempo>" & txtTiempoHecho.Text & "</Tiempo>";
+            nodo &= (text)"<Tiempo>" & Tiempo.Ticks & "</Tiempo>";
             nodo &= "</ItemHistory>";
             xmlDoc.InnerXml = nodo;
             return xmlDoc.FirstChild;

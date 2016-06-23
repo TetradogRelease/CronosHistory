@@ -30,7 +30,7 @@ namespace CronosHistory
             items = new List<ItemCronos>();
             InitializeComponent();
             LoadXml();
-            Closed += SaveXml;
+            Closing += SaveXml;
         }
 
         private void SaveXml(object sender, EventArgs e)
@@ -48,11 +48,18 @@ namespace CronosHistory
         private void LoadXml()
         {
             System.Xml.XmlDocument xml;
+            ItemCronos[] itemsCargados;
             if (File.Exists(NOMBREARCHIVO))
             {
                 xml = new System.Xml.XmlDocument();
                 xml.Load(NOMBREARCHIVO);
-                items.AddRange(ItemCronos.LoadItemsFromXml(xml));
+                itemsCargados = ItemCronos.LoadItemsFromXml(xml);
+
+                for (int i = 0; i < itemsCargados.Length; i++)
+                {
+                    items.Add(itemsCargados[i]);
+                    items[i].Eliminado += Eliminado;
+                }
                 stkTiempos.Children.AddRange(items);
             }
         }
@@ -60,16 +67,20 @@ namespace CronosHistory
         private void btnAñadir_Click(object sender, RoutedEventArgs e)
         {
             ItemCronos newItem = new ItemCronos();
-            items.Add(newItem);
+            items.Insert(0,newItem);
             stkTiempos.Children.Insert(0, newItem);
-            newItem.Eliminado += (s, args) => {
+            newItem.Eliminado += Eliminado;
+        }
+
+        private void Eliminado(object sender, ItemCronosEventArgs e)
+        {
                 Action act = () =>
                 {
-                    items.Remove(args.Item);
-                    stkTiempos.Children.Remove(args.Item);
+                    items.Remove(e.Item);
+                    stkTiempos.Children.Remove(e.Item);
                 };
                 Dispatcher.BeginInvoke(act);
-            };
+          
         }
 
         private void btnQuitarOOK_Click(object sender, RoutedEventArgs e)

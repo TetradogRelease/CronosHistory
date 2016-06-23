@@ -8,10 +8,15 @@
         Title="Cronos History" Height="350" Width="379.249">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="273*"/>
-            <RowDefinition Height="27*"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="257*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="14*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="356*"/>
+            <ColumnDefinition Width="15*"/>
+        </Grid.ColumnDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
             <StackPanel Name="stkTiempos" />
         </ScrollViewer>

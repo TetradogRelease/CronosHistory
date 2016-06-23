@@ -39,7 +39,7 @@ namespace CronosHistory
         public ItemCronos(XmlNode nodoItemCronos):this()
         {
             txtNombreElemento.TextWithFormat = nodoItemCronos.FirstChild.FirstChild.InnerText.DescaparCaracteresXML();
-            lstHistorialTiempos = new HistoryTime(nodoItemCronos.LastChild);
+            lstHistorialTiempos = new HistoryTime(nodoItemCronos);
             txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
         }
         public bool HistorialVisible {
@@ -77,7 +77,7 @@ namespace CronosHistory
                         totalTiempo = lstHistorialTiempos.TotalTime;
                         hiloCambiaHora = new Thread(()=> QueCorraElTiempo());
                         hiloCambiaHora.Start();
-                        act = () => { Background = Brushes.Green; };
+                        act = () => { Background = Brushes.Green; txtNombreElemento.Background = Background; };
                         Dispatcher.BeginInvoke(act);
                     }
                 }else
@@ -89,7 +89,7 @@ namespace CronosHistory
                         lstHistorialTiempos.Add(new ItemHistorialTime(lstHistorialTiempos, inicio));
                         hiloCambiaHora.Abort();
                         txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
-                        act = () => { Background = Brushes.White; };
+                        act = () => { Background = Brushes.White; txtNombreElemento.Background = Background; };
                         Dispatcher.BeginInvoke(act);
                     }
                 }
@@ -139,8 +139,13 @@ namespace CronosHistory
         public static ItemCronos[] LoadItemsFromXml(XmlDocument xml)
         {
             List<ItemCronos> items = new List<ItemCronos>();
-            for (int i = 0; i < xml.ChildNodes.Count; i++)
-                items.Add(new ItemCronos(xml.ChildNodes[i]));
+            ItemCronos item;
+            for (int i = 0; i < xml.FirstChild.ChildNodes.Count; i++)
+            {
+                item = new ItemCronos(xml.FirstChild.ChildNodes[i]);
+            
+                items.Add(item);
+            }
             return items.ToArray();
         }
         public static XmlDocument ToXml(ItemCronos[] items)

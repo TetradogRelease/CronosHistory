@@ -8,14 +8,14 @@
              mc:Ignorable="d" d:DesignWidth="300" Height="47.592">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="29*"/>
-            <ColumnDefinition Width="42*"/>
-            <ColumnDefinition Width="29*"/>
+            <ColumnDefinition Width="23*"/>
+            <ColumnDefinition Width="46*"/>
+            <ColumnDefinition Width="31*"/>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="txtFechaInicio"/>
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
             <wpf:RicoTextBox x:Name="txtDescripcion" Text="Descripción" />
         </ScrollViewer>
-        <TextBlock x:Name="txtTiempoHecho" Grid.Column="2"/>
+        <TextBlock x:Name="txtTiempoHecho" Grid.Column="2" TextAlignment="Center"/>
     </Grid>
 </UserControl>
