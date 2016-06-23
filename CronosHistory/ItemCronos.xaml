@@ -5,23 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CronosHistory"
              xmlns:wpf="clr-namespace:Gabriel.Cat.Wpf;assembly=Gabriel.Cat.Wpf"
-             mc:Ignorable="d" d:DesignWidth="300" Height="30" >
+             mc:Ignorable="d" d:DesignWidth="300"  >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*"/>
-            <RowDefinition/>
+            <RowDefinition  />
+            <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="54*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="54"/>
             <ColumnDefinition Width="133*"/>
-            <ColumnDefinition Width="84*"/>
-            <ColumnDefinition Width="29*"/>
+            <ColumnDefinition Width="84"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="29"/>
+            <ColumnDefinition Width="2"/>
         </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
         <Button x:Name="btnHistoryOrDelete" Content="Historial" Click="btnHistoryOrDelete_Click"/>
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+        </Grid>
+        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" MaxHeight="100" >
             <wpf:RicoTextBox x:Name="txtNombreElemento" />
         </ScrollViewer>
-        <TextBlock x:Name="txbTiempo" Grid.Column="2"/>
-        <Button x:Name="btnOnOff" Content="On" Grid.Column="3" Click="btnOnOff_Click"/>
+        <Viewbox Grid.Column="3">
+            <TextBlock x:Name="txbTiempo" />
+        </Viewbox>
+        <Grid Grid.Column="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button x:Name="btnOnOff" Content="On"  Click="btnOnOff_Click"/>
+        </Grid>
     </Grid>
 </UserControl>
