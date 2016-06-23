@@ -35,6 +35,7 @@ namespace CronosHistory
             
             lstHistorialTiempos = new HistoryTime();
             InitializeComponent();
+            txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
         }
         public ItemCronos(XmlNode nodoItemCronos):this()
         {
@@ -77,7 +78,7 @@ namespace CronosHistory
                         totalTiempo = lstHistorialTiempos.TotalTime;
                         hiloCambiaHora = new Thread(()=> QueCorraElTiempo());
                         hiloCambiaHora.Start();
-                        act = () => { Background = Brushes.Green; txtNombreElemento.Background = Background; };
+                        act = () => { Background = Brushes.LightGreen; txtNombreElemento.Background = Background; };
                         Dispatcher.BeginInvoke(act);
                     }
                 }else
