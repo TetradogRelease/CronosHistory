@@ -5,30 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CronosHistory"
         mc:Ignorable="d"
-        Title="Cronos History" Height="350" Width="379.249">
+        Title="Cronos History" Height="450" Width="737.143" Background="Black" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="19"/>
-            <RowDefinition Height="257*"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="14"/>
+            <RowDefinition Height="41"/>
+            <RowDefinition/>
+            <RowDefinition Height="34"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="356*"/>
-            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="278*"/>
+            <ColumnDefinition Width="93*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+
+        <Image Grid.Column="1" Grid.Row="1" x:Name="imgReloj" />
+
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="0,0,0,10">
             <StackPanel Name="stkTiempos" />
         </ScrollViewer>
-        <Grid Grid.Row="2">
+        <Image x:Name="imgBarra1" Grid.Row="2" Stretch="Fill"/>
+        <Grid Grid.Row="2" Background="Transparent">
+          
+                
+         
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="226*"/>
                 <ColumnDefinition Width="72"/>
                 <ColumnDefinition Width="72"/>
             </Grid.ColumnDefinitions>
+
             <Button x:Name="btnQuitarOOK" Grid.Column="1"  Content="Quitar" Click="btnQuitarOOK_Click"/>
             <Button x:Name="btnAñadir" Grid.Column="2" Content="Añadir" Click="btnAñadir_Click"/>
+
         </Grid>
+        <Image Grid.Column="1" Grid.Row="2" x:Name="imgBarra2" Stretch="Fill"/>
 
     </Grid>
 

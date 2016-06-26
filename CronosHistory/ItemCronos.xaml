@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CronosHistory"
              xmlns:wpf="clr-namespace:Gabriel.Cat.Wpf;assembly=Gabriel.Cat.Wpf"
              mc:Ignorable="d" d:DesignWidth="300"  >
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition  />
             <RowDefinition Height="5"/>
@@ -22,23 +22,29 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="2.5"/>
                 <RowDefinition Height="25" />
                 <RowDefinition/>
             </Grid.RowDefinitions>
-        <Button x:Name="btnHistoryOrDelete" Content="Historial" Click="btnHistoryOrDelete_Click"/>
+            <Button x:Name="btnHistoryOrDelete" Grid.Row="1"  Click="btnHistoryOrDelete_Click" Margin="16,0,7,0">
+                <Button.Background>
+                    <ImageBrush x:Name="imgHistorialDelete"/>
+                </Button.Background>
+            </Button>
         </Grid>
         <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" MaxHeight="100" >
             <wpf:RicoTextBox x:Name="txtNombreElemento" />
         </ScrollViewer>
         <Viewbox Grid.Column="3">
-            <TextBlock x:Name="txbTiempo" />
+            <TextBlock x:Name="txbTiempo" Foreground="White" />
         </Viewbox>
         <Grid Grid.Column="5">
             <Grid.RowDefinitions>
+                <RowDefinition Height="2.5"/>
                 <RowDefinition Height="25"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="btnOnOff" Content="On"  Click="btnOnOff_Click"/>
+            <Button x:Name="btnOnOff" Grid.Row="1" Content="On"  Click="btnOnOff_Click"/>
         </Grid>
     </Grid>
 </UserControl>

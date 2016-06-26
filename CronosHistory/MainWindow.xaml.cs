@@ -31,6 +31,9 @@ namespace CronosHistory
             InitializeComponent();
             LoadXml();
             Closing += SaveXml;
+            imgBarra1.SetImage(Imagenes.barra1);
+            imgBarra2.SetImage(Imagenes.barra2);
+            imgReloj.SetImage(Imagenes.reloj);
         }
 
         private void SaveXml(object sender, EventArgs e)

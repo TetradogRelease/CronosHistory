@@ -38,12 +38,15 @@
     <ApplicationIcon>cronosHistory.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gabriel.Cat.Utilitats, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\pc\Desktop\Programas\Gabriel.Cat.Utilitats\Gabriel.Cat.Utilitats\bin\Release\Gabriel.Cat.Utilitats.dll</HintPath>
+    <Reference Include="Gabriel.Cat.Utilitats">
+      <HintPath>..\..\Gabriel.Cat.Utilitats-master\Gabriel.Cat.Utilitats\bin\Release\Gabriel.Cat.Utilitats.dll</HintPath>
+    </Reference>
+    <Reference Include="Gabriel.Cat.Wpf">
+      <HintPath>..\..\Gabriel.Cat.Wpf-master\Gabriel.Cat.Wpf\bin\Release\Gabriel.Cat.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -85,6 +88,11 @@
     <Compile Include="HistoryTime.xaml.cs">
       <DependentUpon>HistoryTime.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Imagenes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Imagenes.resx</DependentUpon>
+    </Compile>
     <Compile Include="ItemCronos.xaml.cs">
       <DependentUpon>ItemCronos.xaml</DependentUpon>
     </Compile>
@@ -110,6 +118,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Imagenes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Imagenes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -124,13 +136,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\pc\Desktop\Programas\Gabriel.Cat.Wpf\Gabriel.Cat.Wpf\Gabriel.Cat.Wpf.csproj">
-      <Project>{3933330c-b76a-4076-92ea-01f7a6dda58e}</Project>
-      <Name>Gabriel.Cat.Wpf</Name>
-    </ProjectReference>
+    <Resource Include="cronosHistory.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="cronosHistory.ico" />
+    <None Include="Resources\barra2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\barra3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cronosReloj2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menuLineal.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

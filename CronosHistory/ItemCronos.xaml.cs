@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using Gabriel.Cat.Extension;
+using Gabriel.Cat.Extension;
 namespace CronosHistory
 {
     /// <summary>
@@ -29,10 +30,11 @@ namespace CronosHistory
         DateTime inicio;
         TimeSpan totalTiempo;
         Thread hiloCambiaHora;
+        bool estaVisibleElHistorial;
         public event EventHandler<ItemCronosEventArgs> Eliminado;
         public ItemCronos()
         {
-            
+            HistorialVisible = true;
             lstHistorialTiempos = new HistoryTime();
             InitializeComponent();
             txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
@@ -47,18 +49,24 @@ namespace CronosHistory
 
             get
             {
-                return btnHistoryOrDelete.Content.ToString()==HISTORIAL;
+                return estaVisibleElHistorial;
             }
             set
             {
                 if(value)
                 {
-                    btnHistoryOrDelete.Content = HISTORIAL;
+                    /*imgHistorialDelete.ImageSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                                                                                  Imagenes.menuLineal.GetHbitmap(),
+                                                                                  IntPtr.Zero,
+                                                                                  Int32Rect.Empty,
+                                                                                  BitmapSizeOptions.FromEmptyOptions()); */
+                   
                 }
                 else
                 {
                     btnHistoryOrDelete.Content = ELIMINAR;
                 }
+                estaVisibleElHistorial = value;
             }
         }
         public bool EstaEncendido
@@ -78,7 +86,7 @@ namespace CronosHistory
                         totalTiempo = lstHistorialTiempos.TotalTime;
                         hiloCambiaHora = new Thread(()=> QueCorraElTiempo());
                         hiloCambiaHora.Start();
-                        act = () => { Background = Brushes.LightGreen; txtNombreElemento.Background = Background; };
+                        act = () => { Background = Brushes.LightGreen; txtNombreElemento.Background = Background; txbTiempo.Background = Background; };
                         Dispatcher.BeginInvoke(act);
                     }
                 }else
@@ -90,7 +98,7 @@ namespace CronosHistory
                         lstHistorialTiempos.Add(new ItemHistorialTime(lstHistorialTiempos, inicio));
                         hiloCambiaHora.Abort();
                         txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
-                        act = () => { Background = Brushes.White; txtNombreElemento.Background = Background; };
+                        act = () => { Background = Brushes.Transparent; txtNombreElemento.Background = Brushes.White; txbTiempo.Background = Background; };
                         Dispatcher.BeginInvoke(act);
                     }
                 }
