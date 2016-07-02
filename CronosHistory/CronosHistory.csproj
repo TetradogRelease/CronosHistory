@@ -38,11 +38,13 @@
     <ApplicationIcon>cronosHistory.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gabriel.Cat.Utilitats">
-      <HintPath>..\..\Gabriel.Cat.Utilitats-master\Gabriel.Cat.Utilitats\bin\Release\Gabriel.Cat.Utilitats.dll</HintPath>
+    <Reference Include="Gabriel.Cat.Utilitats, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\pc\Desktop\Programas\Gabriel.Cat.Utilitats\Gabriel.Cat.Utilitats\bin\Release\Gabriel.Cat.Utilitats.dll</HintPath>
     </Reference>
-    <Reference Include="Gabriel.Cat.Wpf">
-      <HintPath>..\..\Gabriel.Cat.Wpf-master\Gabriel.Cat.Wpf\bin\Release\Gabriel.Cat.Wpf.dll</HintPath>
+    <Reference Include="Gabriel.Cat.Wpf, Version=1.0.6018.3882, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\pc\Desktop\Programas\Gabriel.Cat.Wpf\Gabriel.Cat.Wpf\bin\Release\Gabriel.Cat.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -149,6 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\menuLineal.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BasuraOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BasuraOn.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

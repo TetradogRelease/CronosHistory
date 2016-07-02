@@ -26,11 +26,7 @@
                 <RowDefinition Height="25" />
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button x:Name="btnHistoryOrDelete" Grid.Row="1"  Click="btnHistoryOrDelete_Click" Margin="16,0,7,0">
-                <Button.Background>
-                    <ImageBrush x:Name="imgHistorialDelete"/>
-                </Button.Background>
-            </Button>
+            <wpf:ToggleButton x:Name="btnHistoryOrDelete" ChangeIndex="btnHistoryOrDelete_ChangeIndex" Grid.Row="1"  Margin="16,0,7,0"/>
         </Grid>
         <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" MaxHeight="100" >
             <wpf:RicoTextBox x:Name="txtNombreElemento" />

@@ -17,7 +17,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using Gabriel.Cat.Extension;
-using Gabriel.Cat.Extension;
 namespace CronosHistory
 {
     /// <summary>
@@ -25,25 +24,35 @@ namespace CronosHistory
     /// </summary>
     public partial class ItemCronos : UserControl
     {
-        const string HISTORIAL = "Historial", ELIMINAR = "Eliminar",ON="On",OFF="Off";
+        const string HISTORIAL = "Historial", ELIMINAR = "Eliminar",ON="O",OFF= "|";
+        static readonly Image imgHistorial = Imagenes.menuLineal.ToImage();
+        static readonly Image[] imgsEliminar =new Image[] { Imagenes.BasuraOff.ToImage(),Imagenes.BasuraOn.ToImage() };
         HistoryTime lstHistorialTiempos;
         DateTime inicio;
         TimeSpan totalTiempo;
         Thread hiloCambiaHora;
         bool estaVisibleElHistorial;
-        public event EventHandler<ItemCronosEventArgs> Eliminado;
         public ItemCronos()
         {
-            HistorialVisible = true;
-            lstHistorialTiempos = new HistoryTime();
             InitializeComponent();
+            HistorialVisible = true;
+            lstHistorialTiempos = new HistoryTime(); 
             txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
+         
+       
         }
         public ItemCronos(XmlNode nodoItemCronos):this()
         {
             txtNombreElemento.TextWithFormat = nodoItemCronos.FirstChild.FirstChild.InnerText.DescaparCaracteresXML();
             lstHistorialTiempos = new HistoryTime(nodoItemCronos);
             txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
+        }
+        public bool PendienteDeEliminar
+        {
+            get
+            {
+                return !HistorialVisible&&btnHistoryOrDelete.Index>0;
+            }
         }
         public bool HistorialVisible {
 
@@ -53,20 +62,19 @@ namespace CronosHistory
             }
             set
             {
+                btnHistoryOrDelete.ImagenesButton.Buida();
                 if(value)
                 {
-                    /*imgHistorialDelete.ImageSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                                                                                  Imagenes.menuLineal.GetHbitmap(),
-                                                                                  IntPtr.Zero,
-                                                                                  Int32Rect.Empty,
-                                                                                  BitmapSizeOptions.FromEmptyOptions()); */
-                   
+                        
+                  btnHistoryOrDelete.ImagenesButton.Afegir(imgHistorial);
+                    
                 }
                 else
                 {
-                    btnHistoryOrDelete.Content = ELIMINAR;
+                    btnHistoryOrDelete.ImagenesButton.AfegirMolts(imgsEliminar);
                 }
                 estaVisibleElHistorial = value;
+                btnHistoryOrDelete.Index = btnHistoryOrDelete.Index;
             }
         }
         public bool EstaEncendido
@@ -81,7 +89,9 @@ namespace CronosHistory
                     if(!EstaEncendido)
                     {
                         //lo enciendo
+
                         btnOnOff.Content = OFF;
+                        btnOnOff.Foreground = Brushes.Green;
                         inicio = DateTime.Now;
                         totalTiempo = lstHistorialTiempos.TotalTime;
                         hiloCambiaHora = new Thread(()=> QueCorraElTiempo());
@@ -95,6 +105,7 @@ namespace CronosHistory
                     {
                         //lo apago
                         btnOnOff.Content = ON;
+                        btnOnOff.Foreground = Brushes.Red;
                         lstHistorialTiempos.Add(new ItemHistorialTime(lstHistorialTiempos, inicio));
                         hiloCambiaHora.Abort();
                         txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
@@ -127,18 +138,17 @@ namespace CronosHistory
             return xmlDoc.FirstChild;
         }
 
-        private void btnHistoryOrDelete_Click(object sender, RoutedEventArgs e)
+
+        private void btnHistoryOrDelete_ChangeIndex(object sender, Gabriel.Cat.Wpf.ToggleButtonArgs e)
         {
-            if(HistorialVisible)
+            //cuando hacen clic
+            if (HistorialVisible)
             {
                 //abro el historial
                 lstHistorialTiempos.ShowDialog();
                 txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
             }
-            else if(Eliminado!=null)
-            {
-                Eliminado(this, new ItemCronosEventArgs(this));
-            }
+
         }
 
         private void btnOnOff_Click(object sender, RoutedEventArgs e)

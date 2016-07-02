@@ -57,13 +57,8 @@ namespace CronosHistory
                 xml = new System.Xml.XmlDocument();
                 xml.Load(NOMBREARCHIVO);
                 itemsCargados = ItemCronos.LoadItemsFromXml(xml);
-
-                for (int i = 0; i < itemsCargados.Length; i++)
-                {
-                    items.Add(itemsCargados[i]);
-                    items[i].Eliminado += Eliminado;
-                }
-                stkTiempos.Children.AddRange(items);
+                stkTiempos.Children.AddRange(itemsCargados);
+                items.AddRange(itemsCargados);
             }
         }
 
@@ -72,7 +67,6 @@ namespace CronosHistory
             ItemCronos newItem = new ItemCronos();
             items.Insert(0,newItem);
             stkTiempos.Children.Insert(0, newItem);
-            newItem.Eliminado += Eliminado;
         }
 
         private void Eliminado(object sender, ItemCronosEventArgs e)
@@ -88,7 +82,8 @@ namespace CronosHistory
 
         private void btnQuitarOOK_Click(object sender, RoutedEventArgs e)
         {
-
+            List<ItemCronos> itemsPerTreure;
+            ItemCronos item;
             if (btnAñadir.IsVisible)
             {
                 //activo el modo quitar
@@ -96,9 +91,19 @@ namespace CronosHistory
                 btnAñadir.Visibility = Visibility.Hidden;
             }else
             {
+                itemsPerTreure = new List<ItemCronos>();
                 //desactivo el modo quitar
                 btnQuitarOOK.Content = QUITAR;
                 btnAñadir.Visibility = Visibility.Visible;
+                for (int i = 0; i < stkTiempos.Children.Count; i++)
+                {
+                    item = stkTiempos.Children[i] as ItemCronos;
+                    if (item.PendienteDeEliminar)
+                        itemsPerTreure.Add(item);
+
+                }
+                items.RemoveRange(itemsPerTreure);
+                stkTiempos.Children.RemoveRange(itemsPerTreure);
             }
             for (int i = 0; i < items.Count; i++)
                 items[i].HistorialVisible = btnAñadir.IsVisible;
