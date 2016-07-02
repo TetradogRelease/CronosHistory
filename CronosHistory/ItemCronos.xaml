@@ -15,10 +15,7 @@
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="54"/>
             <ColumnDefinition Width="133*"/>
-            <ColumnDefinition Width="84"/>
-            <ColumnDefinition Width="3"/>
-            <ColumnDefinition Width="29"/>
-            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -31,16 +28,8 @@
         <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" MaxHeight="100" >
             <wpf:RicoTextBox x:Name="txtNombreElemento" />
         </ScrollViewer>
-        <Viewbox Grid.Column="3">
-            <TextBlock x:Name="txbTiempo" Foreground="White" />
-        </Viewbox>
-        <Grid Grid.Column="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2.5"/>
-                <RowDefinition Height="25"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Button x:Name="btnOnOff" Grid.Row="1" Content="On"  Click="btnOnOff_Click"/>
-        </Grid>
+        <wpf:SwitchButtonLabel x:Name="swbtnTime" Foreground="White" Grid.Column="3" />
+       
+       
     </Grid>
 </UserControl>

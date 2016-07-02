@@ -24,7 +24,7 @@ namespace CronosHistory
     /// </summary>
     public partial class ItemCronos : UserControl
     {
-        const string HISTORIAL = "Historial", ELIMINAR = "Eliminar",ON="O",OFF= "|";
+
         static readonly Image imgHistorial = Imagenes.menuLineal.ToImage();
         static readonly Image[] imgsEliminar =new Image[] { Imagenes.BasuraOff.ToImage(),Imagenes.BasuraOn.ToImage() };
         HistoryTime lstHistorialTiempos;
@@ -35,17 +35,19 @@ namespace CronosHistory
         public ItemCronos()
         {
             InitializeComponent();
+            swbtnTime.Label.TextAlignment = TextAlignment.Right;
+            swbtnTime.Changed += (s, e) => { EstaEncendido = !swbtnTime.EstaOff; };
             HistorialVisible = true;
-            lstHistorialTiempos = new HistoryTime(); 
-            txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
-         
+            lstHistorialTiempos = new HistoryTime();
+            swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds();
+           // swbtnTime.Label.FontFamily = new FontFamily(new Uri("pack://application:,,,/Resources/fuenteTexto.ttf"), "Time");
        
         }
         public ItemCronos(XmlNode nodoItemCronos):this()
         {
             txtNombreElemento.TextWithFormat = nodoItemCronos.FirstChild.FirstChild.InnerText.DescaparCaracteresXML();
             lstHistorialTiempos = new HistoryTime(nodoItemCronos);
-            txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
+            swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds();
         }
         public bool PendienteDeEliminar
         {
@@ -79,10 +81,10 @@ namespace CronosHistory
         }
         public bool EstaEncendido
         {
-            get { return btnOnOff.Content.ToString()==OFF; }
+            get { return !swbtnTime.EstaOff; }
             set
             {
-                Action act;
+
                 if(value)
                 {
                     //si no esta on lo enciendo
@@ -90,27 +92,24 @@ namespace CronosHistory
                     {
                         //lo enciendo
 
-                        btnOnOff.Content = OFF;
-                        btnOnOff.Foreground = Brushes.Green;
+                        swbtnTime.EstaOff = true;
                         inicio = DateTime.Now;
                         totalTiempo = lstHistorialTiempos.TotalTime;
                         hiloCambiaHora = new Thread(()=> QueCorraElTiempo());
                         hiloCambiaHora.Start();
-                        act = () => { Background = Brushes.LightGreen; txtNombreElemento.Background = Background; txbTiempo.Background = Background; };
-                        Dispatcher.BeginInvoke(act);
+
                     }
                 }else
                 {
                     if(EstaEncendido)
                     {
                         //lo apago
-                        btnOnOff.Content = ON;
-                        btnOnOff.Foreground = Brushes.Red;
+                        swbtnTime.EstaOff = false;
                         lstHistorialTiempos.Add(new ItemHistorialTime(lstHistorialTiempos, inicio));
+                        if(hiloCambiaHora!=null&&hiloCambiaHora.IsAlive)
                         hiloCambiaHora.Abort();
-                        txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
-                        act = () => { Background = Brushes.Transparent; txtNombreElemento.Background = Brushes.White; txbTiempo.Background = Background; };
-                        Dispatcher.BeginInvoke(act);
+                        swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds(); 
+
                     }
                 }
             }
@@ -119,11 +118,12 @@ namespace CronosHistory
         private void QueCorraElTiempo()
         {
             Action act = () => {
-                txbTiempo.Text = (totalTiempo+(DateTime.Now - inicio)).ToString();
+               
+                swbtnTime.Label.Text = (totalTiempo + (DateTime.Now - inicio)).ToHoursMinutesSeconds();
             };
             while (true)
             {
-                Thread.Sleep(1000);//me espero un segundo
+                Thread.Sleep(500);//me espero un segundo
                 Dispatcher.BeginInvoke(act);
             }
         }
@@ -146,7 +146,8 @@ namespace CronosHistory
             {
                 //abro el historial
                 lstHistorialTiempos.ShowDialog();
-                txbTiempo.Text = lstHistorialTiempos.TotalTime.ToString();
+                totalTiempo = lstHistorialTiempos.TotalTime;
+                swbtnTime.Label.Text = totalTiempo.ToHoursMinutesSeconds();
             }
 
         }
