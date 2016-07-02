@@ -89,7 +89,7 @@ namespace CronosHistory
                 //activo el modo quitar
                 btnQuitarOOK.Content = ACABADO;
                 btnAñadir.Visibility = Visibility.Hidden;
-            }else
+            }else if(HayParaQuitar()&&MessageBox.Show("Estas seguro que quieres eliminarlos ?","Atención",MessageBoxButton.YesNo,MessageBoxImage.Exclamation)==MessageBoxResult.Yes)
             {
                 itemsPerTreure = new List<ItemCronos>();
                 //desactivo el modo quitar
@@ -104,10 +104,26 @@ namespace CronosHistory
                 }
                 items.RemoveRange(itemsPerTreure);
                 stkTiempos.Children.RemoveRange(itemsPerTreure);
+            }else
+            {
+                btnQuitarOOK.Content = QUITAR;
+                btnAñadir.Visibility = Visibility.Visible;
             }
             for (int i = 0; i < items.Count; i++)
                 items[i].HistorialVisible = btnAñadir.IsVisible;
 
+        }
+
+        private bool HayParaQuitar()
+        {
+
+            bool hay = false;
+            items.WhileEach((item) =>
+            {
+                hay = item.PendienteDeEliminar;
+                return !hay;
+            });
+            return hay;
         }
     }
 }
