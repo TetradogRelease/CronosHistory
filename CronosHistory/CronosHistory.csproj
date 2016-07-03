@@ -129,7 +129,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Resources\timenormal.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -138,16 +137,7 @@
     <Resource Include="cronosHistory.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\barra2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\barra3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\cronosReloj2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menuLineal.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BasuraOff.png" />
@@ -172,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\menuLineal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\barra.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

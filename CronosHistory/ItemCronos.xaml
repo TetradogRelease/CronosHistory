@@ -20,7 +20,7 @@
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2.5"/>
-                <RowDefinition Height="25" />
+                <RowDefinition Height="25*" />
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <wpf:ToggleButton x:Name="btnHistoryOrDelete" ChangeIndex="btnHistoryOrDelete_ChangeIndex" Grid.Row="1"  Margin="16,0,7,0"/>

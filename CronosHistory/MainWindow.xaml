@@ -24,7 +24,6 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="0,0,0,10">
             <StackPanel Name="stkTiempos" />
         </ScrollViewer>
-        <Image x:Name="imgBarra1" Grid.Row="2" Stretch="Fill"/>
         <Grid Grid.Row="2" Background="Transparent">
           
                 

@@ -63,19 +63,9 @@ namespace CronosHistory {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap barra1 {
+        internal static System.Drawing.Bitmap barra {
             get {
-                object obj = ResourceManager.GetObject("barra1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap barra2 {
-            get {
-                object obj = ResourceManager.GetObject("barra2", resourceCulture);
+                object obj = ResourceManager.GetObject("barra", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -127,16 +117,6 @@ namespace CronosHistory {
             get {
                 object obj = ResourceManager.GetObject("CronosPlus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] fuenteTime {
-            get {
-                object obj = ResourceManager.GetObject("fuenteTime", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

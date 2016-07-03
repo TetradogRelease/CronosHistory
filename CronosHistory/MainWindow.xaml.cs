@@ -35,8 +35,7 @@ namespace CronosHistory
             btnQuitarOOK.ImagenesButton.Afegir(Imagenes.CronosMinus.ToImage());
             btnQuitarOOK.ImagenesButton.Afegir(Imagenes.CronosOK.ToImage());
             btnQuitarOOK.Index = 0;
-            imgBarra1.SetImage(Imagenes.barra1);
-            imgBarra2.SetImage(Imagenes.barra2);
+            imgBarra2.SetImage(Imagenes.barra);
             imgReloj.SetImage(Imagenes.reloj);
         }
 
