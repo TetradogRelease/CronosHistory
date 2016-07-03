@@ -35,8 +35,8 @@
                 <ColumnDefinition Width="72"/>
             </Grid.ColumnDefinitions>
 
-            <wpf:ToggleButton x:Name="btnQuitarOOK" Grid.Column="1"  Content="Quitar" ChangeIndex="btnQuitarOOK_ChangeIndex" />
-            <wpf:ToggleButton x:Name="btnAñadir" Grid.Column="2" Content="Añadir" ChangeIndex="btnAñadir_ChangeIndex"/>
+            <wpf:ToggleButton x:Name="btnQuitarOOK" Grid.Column="1"  ChangeIndex="btnQuitarOOK_ChangeIndex" />
+            <wpf:ToggleButton x:Name="btnAñadir" Grid.Column="2"  ChangeIndex="btnAñadir_ChangeIndex"/>
 
         </Grid>
         <Image Grid.Column="1" Grid.Row="2" x:Name="imgBarra2" Stretch="Fill"/>

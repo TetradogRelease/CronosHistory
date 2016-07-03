@@ -31,6 +31,7 @@ namespace CronosHistory
             LoadXml();
             Closing += SaveXml;
             btnAñadir.ImagenesButton.Afegir(Imagenes.CronosPlus.ToImage());
+           
             btnQuitarOOK.ImagenesButton.Afegir(Imagenes.CronosMinus.ToImage());
             btnQuitarOOK.ImagenesButton.Afegir(Imagenes.CronosOK.ToImage());
             btnQuitarOOK.Index = 0;
@@ -88,16 +89,10 @@ namespace CronosHistory
         {
             List<ItemCronos> itemsPerTreure;
             ItemCronos item;
-            if (btnAñadir.Index == 0)
-            {
-                //activo el modo quitar
-                btnQuitarOOK.Index = 0;
-            }
-            else if (HayParaQuitar() && MessageBox.Show("Estas seguro que quieres eliminarlos ?", "Atención", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
+            if (btnQuitarOOK.Index == 0&&HayParaQuitar() && MessageBox.Show("Estas seguro que quieres eliminarlos ?", "Atención", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
             {
                 itemsPerTreure = new List<ItemCronos>();
-                //desactivo el modo quitar
-                btnQuitarOOK.Index = 1;
+
                 for (int i = 0; i < stkTiempos.Children.Count; i++)
                 {
                     item = stkTiempos.Children[i] as ItemCronos;
@@ -108,12 +103,10 @@ namespace CronosHistory
                 items.RemoveRange(itemsPerTreure);
                 stkTiempos.Children.RemoveRange(itemsPerTreure);
             }
-            else
-            {
-                btnAñadir.Index = 1;
-            }
+
             for (int i = 0; i < items.Count; i++)
-                items[i].HistorialVisible = btnAñadir.Index == 0;
+                items[i].HistorialVisible = btnQuitarOOK.Index == 0;
+            btnAñadir.Visibility = btnQuitarOOK.Index == 0 ? Visibility.Visible : Visibility.Hidden;
         }
 
         private bool HayParaQuitar()
