@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CronosHistory"
+        xmlns:wpf="clr-namespace:Gabriel.Cat.Wpf;assembly=Gabriel.Cat.Wpf"
         mc:Ignorable="d"
         Title="Cronos History" Height="450" Width="737.143" Background="Black" ResizeMode="CanMinimize">
     <Grid>
@@ -34,8 +35,8 @@
                 <ColumnDefinition Width="72"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="btnQuitarOOK" Grid.Column="1"  Content="Quitar" Click="btnQuitarOOK_Click"/>
-            <Button x:Name="btnAñadir" Grid.Column="2" Content="Añadir" Click="btnAñadir_Click"/>
+            <wpf:ToggleButton x:Name="btnQuitarOOK" Grid.Column="1"  Content="Quitar" ChangeIndex="btnQuitarOOK_ChangeIndex" />
+            <wpf:ToggleButton x:Name="btnAñadir" Grid.Column="2" Content="Añadir" ChangeIndex="btnAñadir_ChangeIndex"/>
 
         </Grid>
         <Image Grid.Column="1" Grid.Row="2" x:Name="imgBarra2" Stretch="Fill"/>

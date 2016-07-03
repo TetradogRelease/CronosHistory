@@ -139,4 +139,13 @@
   <data name="reloj" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\cronosReloj2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CronosMinus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Cronos-.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CronosOK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\CronosOK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CronosPlus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Cronos+.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

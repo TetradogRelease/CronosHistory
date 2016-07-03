@@ -22,7 +22,6 @@ namespace CronosHistory
     /// </summary>
     public partial class MainWindow : Window
     {
-        const string ACABADO = "Acabado", QUITAR = "Quitar";
         const string NOMBREARCHIVO = "CronosHistory.xml";
         List<ItemCronos> items;
         public MainWindow()
@@ -31,6 +30,10 @@ namespace CronosHistory
             InitializeComponent();
             LoadXml();
             Closing += SaveXml;
+            btnAñadir.ImagenesButton.Afegir(Imagenes.CronosPlus.ToImage());
+            btnQuitarOOK.ImagenesButton.Afegir(Imagenes.CronosMinus.ToImage());
+            btnQuitarOOK.ImagenesButton.Afegir(Imagenes.CronosOK.ToImage());
+            btnQuitarOOK.Index = 0;
             imgBarra1.SetImage(Imagenes.barra1);
             imgBarra2.SetImage(Imagenes.barra2);
             imgReloj.SetImage(Imagenes.reloj);
@@ -62,13 +65,6 @@ namespace CronosHistory
             }
         }
 
-        private void btnAñadir_Click(object sender, RoutedEventArgs e)
-        {
-            ItemCronos newItem = new ItemCronos();
-            items.Insert(0,newItem);
-            stkTiempos.Children.Insert(0, newItem);
-        }
-
         private void Eliminado(object sender, ItemCronosEventArgs e)
         {
                 Action act = () =>
@@ -80,21 +76,28 @@ namespace CronosHistory
           
         }
 
-        private void btnQuitarOOK_Click(object sender, RoutedEventArgs e)
+
+        private void btnAñadir_ChangeIndex(object sender, Gabriel.Cat.Wpf.ToggleButtonArgs e)
+        {
+            ItemCronos newItem = new ItemCronos();
+            items.Insert(0, newItem);
+            stkTiempos.Children.Insert(0, newItem);
+        }
+
+        private void btnQuitarOOK_ChangeIndex(object sender, Gabriel.Cat.Wpf.ToggleButtonArgs e)
         {
             List<ItemCronos> itemsPerTreure;
             ItemCronos item;
-            if (btnAñadir.IsVisible)
+            if (btnAñadir.Index == 0)
             {
                 //activo el modo quitar
-                btnQuitarOOK.Content = ACABADO;
-                btnAñadir.Visibility = Visibility.Hidden;
-            }else if(HayParaQuitar()&&MessageBox.Show("Estas seguro que quieres eliminarlos ?","Atención",MessageBoxButton.YesNo,MessageBoxImage.Exclamation)==MessageBoxResult.Yes)
+                btnQuitarOOK.Index = 0;
+            }
+            else if (HayParaQuitar() && MessageBox.Show("Estas seguro que quieres eliminarlos ?", "Atención", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
             {
                 itemsPerTreure = new List<ItemCronos>();
                 //desactivo el modo quitar
-                btnQuitarOOK.Content = QUITAR;
-                btnAñadir.Visibility = Visibility.Visible;
+                btnQuitarOOK.Index = 1;
                 for (int i = 0; i < stkTiempos.Children.Count; i++)
                 {
                     item = stkTiempos.Children[i] as ItemCronos;
@@ -104,14 +107,13 @@ namespace CronosHistory
                 }
                 items.RemoveRange(itemsPerTreure);
                 stkTiempos.Children.RemoveRange(itemsPerTreure);
-            }else
+            }
+            else
             {
-                btnQuitarOOK.Content = QUITAR;
-                btnAñadir.Visibility = Visibility.Visible;
+                btnAñadir.Index = 1;
             }
             for (int i = 0; i < items.Count; i++)
-                items[i].HistorialVisible = btnAñadir.IsVisible;
-
+                items[i].HistorialVisible = btnAñadir.Index == 0;
         }
 
         private bool HayParaQuitar()

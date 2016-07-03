@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using Gabriel.Cat.Extension;
+using System.IO;
+
 namespace CronosHistory
 {
     /// <summary>
@@ -32,15 +34,21 @@ namespace CronosHistory
         TimeSpan totalTiempo;
         Thread hiloCambiaHora;
         bool estaVisibleElHistorial;
+        static readonly string PATHFUENTE= Environment.CurrentDirectory + System.IO.Path.AltDirectorySeparatorChar + "fuenteCronos.ttf";
+
+        static ItemCronos()
+        {
+            Imagenes.fuenteTime.Save(PATHFUENTE);
+        }
         public ItemCronos()
         {
             InitializeComponent();
-            swbtnTime.Label.TextAlignment = TextAlignment.Right;
+            swbtnTime.Label.TextAlignment = TextAlignment.Center;
             swbtnTime.Changed += (s, e) => { EstaEncendido = !swbtnTime.EstaOff; };
             HistorialVisible = true;
             lstHistorialTiempos = new HistoryTime();
             swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds();
-           // swbtnTime.Label.FontFamily = new FontFamily(new Uri("pack://application:,,,/Resources/fuenteTexto.ttf"), "Time");
+            swbtnTime.Label.FontFamily = new FontFamily(new Uri(PATHFUENTE), "Time");
        
         }
         public ItemCronos(XmlNode nodoItemCronos):this()
