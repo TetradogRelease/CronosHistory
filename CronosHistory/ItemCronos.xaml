@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CronosHistory"
              xmlns:wpf="clr-namespace:Gabriel.Cat.Wpf;assembly=Gabriel.Cat.Wpf"
              mc:Ignorable="d" d:DesignWidth="300"  >
-    <Grid >
+    <Grid Background="LightBlue">
         <Grid.RowDefinitions>
             <RowDefinition  />
             <RowDefinition Height="5"/>
@@ -15,6 +15,7 @@
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="54"/>
             <ColumnDefinition Width="133*"/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
@@ -28,7 +29,7 @@
         <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" MaxHeight="100" >
             <wpf:RicoTextBox x:Name="txtNombreElemento" />
         </ScrollViewer>
-        <wpf:SwitchButtonLabel x:Name="swbtnTime" Foreground="White" Grid.Column="3" />
+        <wpf:SwitchButtonLabel x:Name="swbtnTime" Foreground="White" Grid.Column="4" />
        
        
     </Grid>
