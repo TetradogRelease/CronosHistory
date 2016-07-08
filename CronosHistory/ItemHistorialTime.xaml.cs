@@ -27,6 +27,8 @@ namespace CronosHistory
             Inicio,Descripcion,Tiempo
         }
         HistoryTime parent;
+        DateTime inicio;
+        TimeSpan tiempo;
         public event EventHandler Eliminar;
         public ItemHistorialTime(HistoryTime parent)
         {
@@ -44,7 +46,7 @@ namespace CronosHistory
         public ItemHistorialTime(HistoryTime parent,XmlNode nodoData):this(parent)
         {
             Inicio = new DateTime(Convert.ToInt64(nodoData.ChildNodes[(int)XmlCampos.Inicio].InnerText));
-            Tiempo =new TimeSpan(Convert.ToInt64(nodoData.ChildNodes[(int)XmlCampos.Tiempo].InnerText)); ;
+            Tiempo =new TimeSpan(Convert.ToInt64(nodoData.ChildNodes[(int)XmlCampos.Tiempo].InnerText)); 
             RichDescription = nodoData.ChildNodes[(int)XmlCampos.Descripcion].InnerText.DescaparCaracteresXML();
 
         }
@@ -61,18 +63,20 @@ namespace CronosHistory
 
         public DateTime Inicio
         {
-            get { return  DateTime.Parse(txtFechaInicio.Text); }
+            get { return  inicio; }
             set
             {
-                txtFechaInicio.Text = value.ToString().Replace(" ","\n");
+                inicio = value;
+                txtFechaInicio.Text = inicio.ToString().Replace(" ","\n");
             }
         }
         public TimeSpan Tiempo
         {
-            get { return TimeSpan.Parse(txtTiempoHecho.Text); }
+            get { return tiempo; }
             set
             {
-                txtTiempoHecho.Text = value.ToString();
+                tiempo = value;
+                txtTiempoHecho.Text = tiempo.ToString();
             }
         }
         public string RichDescription
@@ -106,7 +110,7 @@ namespace CronosHistory
             if (parent == null || nodoItemCronos == null)
                 throw new ArgumentNullException();
 
-            for (int i = 1, f = nodoItemCronos.ChildNodes.Count; i < f; i++)//el nodo 0 es la descripcion del item :D
+            for (int i = 0, f = nodoItemCronos.ChildNodes.Count; i < f; i++)
                 try
                 {
                     parent.Add(new ItemHistorialTime(parent,nodoItemCronos.ChildNodes[i]));

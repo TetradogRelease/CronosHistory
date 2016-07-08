@@ -47,7 +47,7 @@ namespace CronosHistory
         public ItemCronos(XmlNode nodoItemCronos):this()
         {
             txtNombreElemento.TextWithFormat = nodoItemCronos.FirstChild.FirstChild.InnerText.DescaparCaracteresXML();
-            lstHistorialTiempos = new HistoryTime(nodoItemCronos);
+            lstHistorialTiempos = new HistoryTime(nodoItemCronos.LastChild);
             swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds();
         }
         public bool PendienteDeEliminar
@@ -82,7 +82,7 @@ namespace CronosHistory
         }
         public bool EstaEncendido
         {
-            get { return swbtnTime.EstaOn; }
+            get { return DateTime.MinValue.Ticks != inicio.Ticks; }
             set
             {
 
@@ -106,8 +106,8 @@ namespace CronosHistory
                         lstHistorialTiempos.Add(new ItemHistorialTime(lstHistorialTiempos, inicio));
                         if(hiloCambiaHora!=null&&hiloCambiaHora.IsAlive)
                         hiloCambiaHora.Abort();
-                        swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds(); 
-
+                        swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds();
+                        inicio = DateTime.MinValue;
                     }
                 }
             }
@@ -128,7 +128,7 @@ namespace CronosHistory
         public XmlNode ToNodoXml()
         {
             XmlDocument xmlDoc = new XmlDocument();
-            string nodos= lstHistorialTiempos.ToNodoXml().InnerXml;
+            string nodos= lstHistorialTiempos.ToNodoXml().OuterXml;
             string nodoItemCronos = "<ItemCronos><DescripcionItem>" + txtNombreElemento.TextWithFormat.EscaparCaracteresXML() + "</DescripcionItem>";
             nodoItemCronos += nodos+"</ItemCronos>";
             xmlDoc.LoadXml(nodoItemCronos);

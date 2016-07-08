@@ -24,8 +24,13 @@ namespace CronosHistory
     {
         const string NOMBREARCHIVO = "CronosHistory.xml";
         List<ItemCronos> items;
+
+        public static bool IsClosing { get; private set; }
+
         public MainWindow()
         {
+            Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            IsClosing = false;
             items = new List<ItemCronos>();
             InitializeComponent();
             LoadXml();
@@ -41,9 +46,11 @@ namespace CronosHistory
 
         private void SaveXml(object sender, EventArgs e)
         {
+            IsClosing = true;
             //paro los que esten encendidos
             for (int i = 0; i < items.Count; i++)
-                items[i].EstaEncendido = false;
+                if(items[i].EstaEncendido)
+                  items[i].EstaEncendido = false;
             //genero el xml
             if (items.Count != 0)
                 ItemCronos.ToXml(items.ToArray()).Save(NOMBREARCHIVO);

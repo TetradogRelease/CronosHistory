@@ -28,7 +28,8 @@ namespace CronosHistory
             Closing += (s, e) =>
             {
                 e.Cancel = true;
-                Hide();
+                if(!MainWindow.IsClosing)
+                   Hide();
             };
         }
         public HistoryTime(XmlNode nodoItemCronos):this()
