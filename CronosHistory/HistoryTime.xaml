@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CronosHistory"
+        xmlns:wpf="clr-namespace:Gabriel.Cat.Wpf;assembly=Gabriel.Cat.Wpf"
         mc:Ignorable="d"
         Title="History Time" Height="272.507" Width="352">
     <Grid>
@@ -15,6 +16,13 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
             <StackPanel x:Name="stkHistorial"/>
         </ScrollViewer>
-        <CheckBox x:Name="ckSaltarConfirmacion" Content="Eliminar al hacer clic" Grid.Row="2" IsChecked="False" />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="ckSaltarConfirmacion" Content="Eliminar al hacer clic"  IsChecked="False" />
+            <Button x:Name="btnAñadirCustom" Grid.Column="1" Content="Añadir" Click="btnAñadirCustom_Click" MaxWidth="100" HorizontalAlignment="Center"/>
+        </Grid>
     </Grid>
 </Window>

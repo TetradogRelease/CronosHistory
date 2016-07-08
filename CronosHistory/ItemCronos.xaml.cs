@@ -50,6 +50,7 @@ namespace CronosHistory
             lstHistorialTiempos = new HistoryTime(nodoItemCronos.LastChild);
             swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds();
         }
+
         public bool PendienteDeEliminar
         {
             get

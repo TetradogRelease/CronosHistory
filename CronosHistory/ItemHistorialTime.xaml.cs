@@ -43,6 +43,11 @@ namespace CronosHistory
             Inicio = inicio;
             Tiempo = DateTime.Now-inicio;
         }
+        public ItemHistorialTime(HistoryTime parent,DateTime fecha, TimeSpan tiempo):this(parent)
+        {
+            Inicio = fecha;
+            Tiempo = tiempo;
+        }
         public ItemHistorialTime(HistoryTime parent,XmlNode nodoData):this(parent)
         {
             Inicio = new DateTime(Convert.ToInt64(nodoData.ChildNodes[(int)XmlCampos.Inicio].InnerText));

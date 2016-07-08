@@ -53,11 +53,22 @@ namespace CronosHistory
                 Action act = () =>
                 {
                     stkHistorial.Children.Remove(s as ItemHistorialTime);
+                    ActualizaBackGroundItems();
                 };
                 Dispatcher.BeginInvoke(act);
             };
             stkHistorial.Children.Add(item);
+            ActualizaBackGroundItems();
         }
+
+        private void ActualizaBackGroundItems()
+        {
+            for (int i = 0; i < stkHistorial.Children.Count; i++)
+                if (i % 2 == 0)
+                    ((ItemHistorialTime)stkHistorial.Children[i]).Background = Brushes.LightBlue;
+                else ((ItemHistorialTime)stkHistorial.Children[i]).Background = Brushes.White;
+        }
+
         public XmlNode ToNodoXml()
         {
             XmlDocument xmlDoc = new XmlDocument();
@@ -68,6 +79,26 @@ namespace CronosHistory
             xmlDoc.InnerXml = nodo;
             xmlDoc.Normalize();
             return xmlDoc.FirstChild;
+        }
+
+
+        private void btnAñadirCustom_Click(object sender, RoutedEventArgs e)
+        {
+            //hacen clic
+            winPostItem winPostItem = new winPostItem();
+            winPostItem.ShowDialog();
+            if (winPostItem.GuardarItem)
+            {
+                try
+                {
+                    Add(new ItemHistorialTime(this, winPostItem.Fecha, winPostItem.Tiempo));
+
+                }
+                catch
+                {
+                    MessageBox.Show("No se ha añadido nada", "Atención", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

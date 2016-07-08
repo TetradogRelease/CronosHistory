@@ -6,16 +6,16 @@
         xmlns:local="clr-namespace:CronosHistory"
         xmlns:wpf="clr-namespace:Gabriel.Cat.Wpf;assembly=Gabriel.Cat.Wpf"
         mc:Ignorable="d"
-        Title="Cronos History" Height="450" Width="737.143" Background="Black" ResizeMode="CanMinimize">
+        Title="Cronos History" Height="450" MinHeight="450" Width="737" MinWidth="450" Background="Black" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="41"/>
-            <RowDefinition/>
+            <RowDefinition MinHeight="340"/>
             <RowDefinition Height="34"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="278*"/>
-            <ColumnDefinition Width="93*"/>
+            <ColumnDefinition MinWidth="300" Width="278*"/>
+            <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
 
         <Image Grid.Column="1" Grid.Row="1" x:Name="imgReloj" />

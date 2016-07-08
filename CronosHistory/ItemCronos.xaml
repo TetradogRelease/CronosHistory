@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:CronosHistory"
              xmlns:wpf="clr-namespace:Gabriel.Cat.Wpf;assembly=Gabriel.Cat.Wpf"
              mc:Ignorable="d" d:DesignWidth="300"  >
-    <Grid Background="LightBlue">
+    <Grid >
         <Grid.RowDefinitions>
             <RowDefinition  />
             <RowDefinition Height="5"/>
