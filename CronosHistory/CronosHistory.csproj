@@ -38,9 +38,11 @@
     <ApplicationIcon>cronosHistory.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gabriel.Cat.Utilitats, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\pc\Desktop\Programas\Gabriel.Cat.Utilitats\Gabriel.Cat.Utilitats\bin\Release\Gabriel.Cat.Utilitats.dll</HintPath>
+    <Reference Include="Gabriel.Cat.Utilitats">
+      <HintPath>..\..\gabriel.cat.utilitats\Gabriel.Cat.Utilitats\bin\Release\Gabriel.Cat.Utilitats.dll</HintPath>
+    </Reference>
+    <Reference Include="Gabriel.Cat.Wpf">
+      <HintPath>..\..\gabriel.cat.wpf\Gabriel.Cat.Wpf\bin\Release\Gabriel.Cat.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -160,12 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CronosOK.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="C:\Users\pc\Desktop\Programas\Gabriel.Cat.Wpf\Gabriel.Cat.Wpf\Gabriel.Cat.Wpf.csproj">
-      <Project>{3933330c-b76a-4076-92ea-01f7a6dda58e}</Project>
-      <Name>Gabriel.Cat.Wpf</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\menuLineal.png" />
