@@ -1,0 +1,41 @@
+﻿<UserControl
+    x:Class="CronosHistory_UWP.ItemCronos"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CronosHistory_UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:Gabriel.Cat.Uwp"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition  />
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="54"/>
+            <ColumnDefinition Width="133*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2.5"/>
+                <RowDefinition Height="25*" />
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <uwp:ToggleButton x:Name="btnHistoryOrDelete" ChangeIndex="btnHistoryOrDelete_ChangeIndex" Grid.Row="1"  Margin="16,0,7,0" />
+        </Grid>
+        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" MaxHeight="100" >
+            <TextBox x:Name="txtNombreElemento" />
+        </ScrollViewer>
+        <uwp:SwitchButtonLabel x:Name="swbtnTime" Foreground="White" Grid.Column="4" />
+
+
+    </Grid>
+</UserControl>

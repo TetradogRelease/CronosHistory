@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="CronosHistory_Uwp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CronosHistory_Uwp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwp="using:Gabriel.Cat.Uwp"
+    mc:Ignorable="d" xmlns:wpf="using:Gabriel.Cat.Uwp"
+    Background="Black" >
+
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41"/>
+            <RowDefinition MinHeight="340"/>
+            <RowDefinition Height="34"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="300" Width="278*"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Column="1" Grid.Row="1" x:Name="imgReloj" />
+
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="10,10,10,10">
+            <StackPanel Name="stkTiempos" />
+        </ScrollViewer>
+        <Grid Grid.Row="2" Background="Transparent">
+
+
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="226*"/>
+                <ColumnDefinition Width="72"/>
+                <ColumnDefinition Width="72"/>
+            </Grid.ColumnDefinitions>
+
+            <uwp:ToggleButton x:Name="btnQuitarOOK" Grid.Column="1"  ChangeIndex="btnQuitarOOK_ChangeIndex" />
+            <uwp:ToggleButton x:Name="btnAñadir" Grid.Column="2"  ChangeIndex="btnAñadir_ChangeIndex"/>
+
+        </Grid>
+        <Image Grid.Column="1" Grid.Row="2" x:Name="imgBarra" Stretch="Fill"/>
+
+    </Grid>
+</Page>
