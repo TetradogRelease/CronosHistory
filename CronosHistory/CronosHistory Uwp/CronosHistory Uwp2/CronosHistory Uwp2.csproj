@@ -155,11 +155,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Gabriel.Cat.Utilitats.UWP\Gabriel.Cat.Utilitats.UWP\Gabriel.Cat.Utilitats.UWP.csproj">
+    <ProjectReference Include="..\..\..\..\..\Documents\Visual Studio 2015\Projects\Gabriel.Cat.Utilitats.UWP\Gabriel.Cat.Utilitats.UWP\Gabriel.Cat.Utilitats.UWP.csproj">
       <Project>{bfc775b4-3d9c-41b5-b358-12dc4d29c132}</Project>
       <Name>Gabriel.Cat.Utilitats.UWP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Gabriel.Cat.Uwp\Gabriel.Cat.Uwp\Gabriel.Cat.Uwp.csproj">
+    <ProjectReference Include="..\..\..\..\..\Documents\Visual Studio 2015\Projects\Gabriel.Cat.Uwp\Gabriel.Cat.Uwp\Gabriel.Cat.Uwp.csproj">
       <Project>{05675f23-97b2-4a65-aa69-8217056feb8d}</Project>
       <Name>Gabriel.Cat.Uwp</Name>
     </ProjectReference>
