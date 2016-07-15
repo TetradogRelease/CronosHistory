@@ -5,15 +5,23 @@
     xmlns:local="using:CronosHistory_UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"  Width="300" Height="168.941" >
+    mc:Ignorable="d"  >
     <StackPanel Background="White" >
         <TextBlock Text="Fecha" HorizontalAlignment="Center" />
         <DatePicker  x:Name="dpFecha" HorizontalAlignment="Center"/>
         <TimePicker x:Name="tpTiempoFecha" HorizontalAlignment="Center"/>
         <TextBlock Text="Tiempo" HorizontalAlignment="Center"/>
         <TimePicker x:Name="tpTiempoHecho" HorizontalAlignment="Center"/>
-        <Button x:Name="btnGuardar" Content="Guardar" HorizontalAlignment="Center"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnGuardar" Content="Guardar" Grid.Column="1" Click="btnGuardar_Click"/>
 
+            <Button x:Name="btnBack" Content="Back" Grid.Column="2" Click="btnBack_Click" />
+        </Grid>
 
     </StackPanel>
 </Page>

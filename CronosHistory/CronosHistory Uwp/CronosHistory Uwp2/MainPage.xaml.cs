@@ -34,21 +34,21 @@ namespace CronosHistory_Uwp
         StorageFolder folder = ApplicationData.Current.LocalFolder;
         public MainPage()
         {
-
+           
             Image imgCronosPlus = new Image(), imgCronosMinus = new Image(), imgCronosOK = new Image();
             items = new List<ItemCronos>();
             InitializeComponent();
             
             MainBaseUri = this.BaseUri;
-            imgCronosPlus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Cronos+.png"));
-            imgCronosMinus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Cronos-.png"));
-            imgCronosOK.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/CronosOK.png"));
+            imgCronosPlus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/Cronos+.png"));
+            imgCronosMinus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/Cronos-.png"));
+            imgCronosOK.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/CronosOK.png"));
             btnAñadir.Images.Afegir(imgCronosPlus);
             btnQuitarOOK.Images.Afegir(imgCronosMinus);
             btnQuitarOOK.Images.Afegir(imgCronosOK);
             btnQuitarOOK.Index = 0;
-            imgBarra.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/barra.jpg"));
-            imgReloj.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/cronosReloj2.jpg"));
+            imgBarra.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/barra.jpg"));
+            imgReloj.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/cronosReloj2.jpg"));
             Application.Current.Suspending +=  (s, e) => {  SaveXml(); };
             Application.Current.Resuming += (s, e) => { LoadXml(); };
             LoadXml();
@@ -88,11 +88,36 @@ namespace CronosHistory_Uwp
                     stkTiempos.Children.AddRange(itemsCargados);
                     items.AddRange(itemsCargados);
                     ActualizaBackGroundItems();
+                    for (int i = 0; i < itemsCargados.Length; i++)
+                        itemsCargados[i].OpenHistory += OpenHistoryEvent;
                 }
                 catch (Exception e){
 
                 }
             }
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            MainPage main=e.Parameter as MainPage;
+            base.OnNavigatedTo(e);
+            if(main!=null)
+            for(int i=0;i<main.items.Count;i++)
+            {
+                items.Add(main.items[i]);
+                main.stkTiempos.Children.Remove(items[i]);
+                stkTiempos.Children.Add(items[i]);
+                items[i].OpenHistory += OpenHistoryEvent;
+            }
+
+        }
+
+
+        private void OpenHistoryEvent(object sender, ItemCronosOpenHistoriArgs e)
+        {
+            for (int i = 0; i < items.Count; i++)//quito los eventos
+                items[i].OpenHistory -= OpenHistoryEvent;
+
+            Frame.Navigate(typeof(Historial),new Page[] { this, e.Historial });
         }
 
         private void ActualizaBackGroundItems()
@@ -106,6 +131,7 @@ namespace CronosHistory_Uwp
         private void btnAñadir_ChangeIndex(object sender, Gabriel.Cat.Uwp.ToggleButtonArgs e)
         {
             ItemCronos newItem = new ItemCronos();
+            newItem.OpenHistory += OpenHistoryEvent;
             items.Insert(0, newItem);
             stkTiempos.Children.Insert(0, newItem);
             ActualizaBackGroundItems();
@@ -115,30 +141,33 @@ namespace CronosHistory_Uwp
         {
             List<ItemCronos> itemsPerTreure;
             ItemCronos item;
-            bool esperar = btnQuitarOOK.Index == 0 && HayParaQuitar();
+            bool esperar;
             MessageBox.MessageResult result;
-            if (esperar)
-            {
-                result = await MessageBox.Show("Estas seguro que quieres eliminarlos ?", "Atención", MessageBox.MessageButtons.YesNo);
-                if (result == MessageBox.MessageResult.Yes)
+
+            esperar = btnQuitarOOK.Index == 0 && HayParaQuitar();
+                if (esperar)
                 {
-                    itemsPerTreure = new List<ItemCronos>();
-
-                    for (int i = 0; i < stkTiempos.Children.Count; i++)
+                    result = await MessageBox.Show("Estas seguro que quieres eliminarlos ?", "Atención", MessageBox.MessageButtons.YesNo);
+                    if (result == MessageBox.MessageResult.Yes)
                     {
-                        item = stkTiempos.Children[i] as ItemCronos;
-                        if (item.PendienteDeEliminar)
-                            itemsPerTreure.Add(item);
+                        itemsPerTreure = new List<ItemCronos>();
 
+                        for (int i = 0; i < stkTiempos.Children.Count; i++)
+                        {
+                            item = stkTiempos.Children[i] as ItemCronos;
+                            if (item.PendienteDeEliminar)
+                                itemsPerTreure.Add(item);
+
+                        }
+                        items.RemoveRange(itemsPerTreure);
+                        stkTiempos.Children.RemoveRange(itemsPerTreure);
+                        ActualizaBackGroundItems();
                     }
-                    items.RemoveRange(itemsPerTreure);
-                    stkTiempos.Children.RemoveRange(itemsPerTreure);
-                    ActualizaBackGroundItems();
                 }
-            }
-            for (int i = 0; i < items.Count; i++)
-                items[i].HistorialVisible = btnQuitarOOK.Index == 0;
-            btnAñadir.Visibility = btnQuitarOOK.Index == 0 ? Visibility.Visible : Visibility.Collapsed;
+                for (int i = 0; i < items.Count; i++)
+                    items[i].HistorialVisible = btnQuitarOOK.Index == 0;
+                btnAñadir.Visibility = btnQuitarOOK.Index == 0 ? Visibility.Visible : Visibility.Collapsed;
+
         }
 
         private bool HayParaQuitar()

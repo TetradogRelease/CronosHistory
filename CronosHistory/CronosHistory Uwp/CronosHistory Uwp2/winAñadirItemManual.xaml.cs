@@ -22,6 +22,7 @@ namespace CronosHistory_UWP
     /// </summary>
     public sealed partial class winAñadirItemManual : Page
     {
+        Historial backPage;
         public winAñadirItemManual()
         {
             GuardarItem = false;
@@ -46,11 +47,25 @@ namespace CronosHistory_UWP
                 return dpFecha.Date + tpTiempoFecha.Time;
             }
         }
-        private void btnOk_Click(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            GuardarItem = true;
-          //  Close(); cierro y muestro el historial
+            base.OnNavigatedTo(e);
+            backPage = e.Parameter as Historial;
+        }
+        private void Back()
+        {
+            Frame.Navigate(typeof(Historial), new Page[] { backPage.Back , backPage });
         }
 
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            backPage.Add(new ItemHistorial(backPage, Fecha, Tiempo));
+            Back();
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            Back();
+        }
     }
 }

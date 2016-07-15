@@ -1,4 +1,5 @@
-﻿using Gabriel.Cat;
+﻿using CronosHistory_Uwp;
+using Gabriel.Cat;
 using Gabriel.Cat.Extension;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace CronosHistory_UWP
     /// </summary>
     public sealed partial class Historial : Page
     {
+        MainPage backPage;
+        Historial nextPage;
         public Historial()
         {
             this.InitializeComponent();
@@ -32,6 +35,40 @@ namespace CronosHistory_UWP
         public Historial(XmlNode nodoItemCronos):this()
         {
             ItemHistorial.AddItemsXml(this, nodoItemCronos);
+        }
+        internal MainPage Back
+        {
+            get { return backPage; }
+        }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            //cargo la pagina que tenia que cargar y cojo el main para volver atrás
+            Page[] pages = e.Parameter as Page[];
+            
+            ItemHistorial item;
+            nextPage = pages[1] as Historial;
+            backPage = pages[0] as MainPage;
+            base.OnNavigatedFrom(e);
+            for (int i = 0; i < nextPage.stkHistorial.Children.Count; i++)
+            {
+                item = nextPage.stkHistorial.Children[i] as ItemHistorial;
+                nextPage.stkHistorial.Children.Remove(item);
+                Add(item);
+            }
+
+            nextPage.backPage = null;
+            
+        }
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            ItemHistorial item;
+            base.OnNavigatedFrom(e);
+            for(int i=0;i<stkHistorial.Children.Count;i++)
+            {
+                item = stkHistorial.Children[i] as ItemHistorial;
+                stkHistorial.Children.Remove(item);
+                nextPage.stkHistorial.Children.Add(item);
+            }
         }
         public TimeSpan TotalTime
         {
@@ -50,17 +87,21 @@ namespace CronosHistory_UWP
 
         public void Add(ItemHistorial item)
         {
-            item.Eliminar += (s, e) =>
+            try
             {
-                Action act = () =>
+                item.Eliminar += (s, e) =>
                 {
-                    stkHistorial.Children.Remove(s as ItemHistorial);
-                    ActualizaBackGroundItems();
+                    Action act = () =>
+                    {
+                        stkHistorial.Children.Remove(s as ItemHistorial);
+                        ActualizaBackGroundItems();
+                    };
+                    Dispatcher.BeginInvoke(act);
                 };
-             //   Dispatcher.BeginInvoke(act);
-            };
-            stkHistorial.Children.Add(item);
-            ActualizaBackGroundItems();
+                stkHistorial.Children.Add(item);
+                ActualizaBackGroundItems();
+            }
+            catch { }
         }
 
         private void ActualizaBackGroundItems()
@@ -87,21 +128,13 @@ namespace CronosHistory_UWP
         private void btnAñadirCustom_Click(object sender, RoutedEventArgs e)
         {
             //hacen clic
-            winAñadirItemManual winPostItem = new winAñadirItemManual();
-            //lo abro
-            if (winPostItem.GuardarItem)
-            {
-                try
-                {
-                    Add(new ItemHistorial(this, winPostItem.Fecha, winPostItem.Tiempo));
+            Frame.Navigate(typeof(winAñadirItemManual),this);
 
-                }
-                catch
-                {
-                   
-                    MessageBox.Show("No se ha añadido nada", "Atención", MessageBox.MessageButtons.Ok);
-                }
-            }
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage),backPage);
         }
     }
 }

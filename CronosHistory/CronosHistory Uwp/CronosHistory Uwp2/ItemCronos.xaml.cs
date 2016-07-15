@@ -22,19 +22,25 @@ using CronosHistory_Uwp;
 
 namespace CronosHistory_UWP
 {
+    public class ItemCronosOpenHistoriArgs : EventArgs
+    {
+        public Historial Historial { get; private set; }
+        public ItemCronosOpenHistoriArgs(Historial historial)
+        { Historial = historial; }
+    }
     public sealed partial class ItemCronos : UserControl
     {
-         readonly Image imgHistorial = new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets/menuLineal.png")) };
+         readonly Image imgHistorial = new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets3/menuLineal.png")) };
          readonly Image[] imgsEliminar = new Image[] {
-             new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets/BasuraOff.png")) },
-            new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets/BasuraOn.png")) } };
+             new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets3/BasuraOff.png")) },
+            new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets3/BasuraOn.png")) } };
         Historial lstHistorialTiempos;
         DateTime inicio;
         TimeSpan totalTiempo;
         Task hiloCambiaHora;
         bool estaOn;
         bool estaVisibleElHistorial;
-
+        public event EventHandler<ItemCronosOpenHistoriArgs> OpenHistory;
         public ItemCronos()
         {
             estaOn = false;
@@ -144,10 +150,11 @@ namespace CronosHistory_UWP
         private void btnHistoryOrDelete_ChangeIndex(object sender, Gabriel.Cat.Uwp.ToggleButtonArgs e)
         {
             //cuando hacen clic
-            if (HistorialVisible)
+            if (HistorialVisible&&OpenHistory!=null)
             {
+
                 //abro el historial
-             //   lstHistorialTiempos.ShowDialog();
+                OpenHistory(this, new ItemCronosOpenHistoriArgs(lstHistorialTiempos));
                 totalTiempo = lstHistorialTiempos.TotalTime;
                 swbtnTime.Text = totalTiempo.ToHoursMinutesSeconds();
             }
