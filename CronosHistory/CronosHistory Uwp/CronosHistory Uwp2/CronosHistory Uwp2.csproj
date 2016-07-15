@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Historial.xaml.cs" />
+    <Compile Include="itemCronos.cs" />
     <Compile Include="ItemCronos.xaml.cs" />
     <Compile Include="ItemHistorial.xaml.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -111,14 +112,14 @@
     <None Include="CronosHistory Uwp2_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets3\barra.jpg" />
-    <Content Include="Assets3\BasuraOff.png" />
-    <Content Include="Assets3\BasuraOn.png" />
-    <Content Include="Assets3\Cronos+.png" />
-    <Content Include="Assets3\Cronos-.png" />
-    <Content Include="Assets3\CronosOK.png" />
-    <Content Include="Assets3\cronosReloj2.jpg" />
-    <Content Include="Assets3\menuLineal.png" />
+    <Content Include="Assets\barra.jpg" />
+    <Content Include="Assets\BasuraOff.png" />
+    <Content Include="Assets\BasuraOn.png" />
+    <Content Include="Assets\Cronos+.png" />
+    <Content Include="Assets\Cronos-.png" />
+    <Content Include="Assets\CronosOK.png" />
+    <Content Include="Assets\cronosReloj.jpg" />
+    <Content Include="Assets\menuLineal.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>

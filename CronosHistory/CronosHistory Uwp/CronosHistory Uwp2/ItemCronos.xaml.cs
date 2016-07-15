@@ -24,40 +24,40 @@ namespace CronosHistory_UWP
 {
     public class ItemCronosOpenHistoriArgs : EventArgs
     {
-        public Historial Historial { get; private set; }
-        public ItemCronosOpenHistoriArgs(Historial historial)
+        public itemCronos Historial { get; private set; }
+        public ItemCronosOpenHistoriArgs(itemCronos historial)
         { Historial = historial; }
     }
     public sealed partial class ItemCronos : UserControl
     {
-         readonly Image imgHistorial = new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets3/menuLineal.png")) };
+         readonly Image imgHistorial = new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets/menuLineal.png")) };
          readonly Image[] imgsEliminar = new Image[] {
-             new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets3/BasuraOff.png")) },
-            new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets3/BasuraOn.png")) } };
-        Historial lstHistorialTiempos;
-        DateTime inicio;
-        TimeSpan totalTiempo;
-        Task hiloCambiaHora;
-        bool estaOn;
+             new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets/BasuraOff.png")) },
+            new Image() { Source = new BitmapImage(new Uri(MainPage.MainBaseUri,"/Assets/BasuraOn.png")) } };
+        itemCronos itemCronos;
         bool estaVisibleElHistorial;
         public event EventHandler<ItemCronosOpenHistoriArgs> OpenHistory;
-        public ItemCronos()
+        public ItemCronos():this(new itemCronos())
         {
-            estaOn = false;
+
+        }
+        public ItemCronos(itemCronos itemCronos )
+        {
             InitializeComponent();
+            this.itemCronos = itemCronos;
+            this.itemCronos.ItemParent = this;
+            txtNombreElemento.TextChanged += (s, e) => { itemCronos.Descripcion = txtNombreElemento.Text; };
             swbtnTime.Label.TextAlignment = TextAlignment.Center;
             swbtnTime.IndexChanged += (s, e) => { EstaEncendido = !EstaEncendido; };
             HistorialVisible = true;
-            lstHistorialTiempos = new Historial();
-            swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds();
+           
+            txtNombreElemento.Text = itemCronos.Descripcion;
+            swbtnTime.Label.Text = itemCronos.TiempoTotal.ToHoursMinutesSeconds();
         }
-        public ItemCronos(XmlNode nodoItemCronos) : this()
+        public itemCronos Item
         {
-            txtNombreElemento.Text= nodoItemCronos.FirstChild.FirstChild.InnerText.DescaparCaracteresXML();
-            lstHistorialTiempos = new Historial(nodoItemCronos.LastChild);
-            swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds();
+            get { return itemCronos; }
         }
-
         public bool PendienteDeEliminar
         {
             get
@@ -91,60 +91,29 @@ namespace CronosHistory_UWP
         }
         public bool EstaEncendido
         {
-            get { return DateTime.MinValue.Ticks != inicio.Ticks; }
+            get { return itemCronos.EstaOn; }
             set
             {
 
-                if (value)
-                {
-                    //si no esta on lo enciendo
-                    if (!EstaEncendido)
-                    {
-                        //lo enciendo
-                        inicio = DateTime.Now;
-                        totalTiempo = lstHistorialTiempos.TotalTime;
-                        hiloCambiaHora = new Task(() => QueCorraElTiempo());
-                        hiloCambiaHora.Start();
-
-                    }
-                }
-                else
-                {
-                    if (EstaEncendido)
-                    {
-                        //lo apago
-                        lstHistorialTiempos.Add(new ItemHistorial(lstHistorialTiempos, inicio));
-                        if (hiloCambiaHora != null && hiloCambiaHora.Status == TaskStatus.Running)
-                            estaOn = false;
-                        swbtnTime.Label.Text = lstHistorialTiempos.TotalTime.ToHoursMinutesSeconds();
-                        inicio = DateTime.MinValue;
-                    }
-                }
+                itemCronos.EstaOn = value;
+                swbtnTime.Text = itemCronos.TiempoTotal.ToHoursMinutesSeconds();
             }
         }
 
-        private  void QueCorraElTiempo()
+        public static ItemCronos[] ToControl(itemCronos[] itemsCargados)
         {
-            Action act = () => { swbtnTime.Label.Text = (totalTiempo + (DateTime.Now - inicio)).ToHoursMinutesSeconds(); };
-            estaOn = true;
-            while (estaOn)
-            {
-                
-                Dispatcher.BeginInvoke(act);
-                if(estaOn)
-                    Task.Delay(TimeSpan.FromMilliseconds(500)).Wait();
-            }
+            ItemCronos[] items = new ItemCronos[itemsCargados.Length];
+            for (int i = 0; i < itemsCargados.Length; i++)
+                items[i] = new ItemCronos(itemsCargados[i]);
+            return items;
         }
-        public XmlNode ToNodoXml()
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            string nodos = lstHistorialTiempos.ToNodoXml().OuterXml;
-            string nodoItemCronos = "<ItemCronos><DescripcionItem>" + txtNombreElemento.Text.EscaparCaracteresXML() + "</DescripcionItem>";
-            nodoItemCronos += nodos + "</ItemCronos>";
-            xmlDoc.LoadXml(nodoItemCronos);
-            xmlDoc.Normalize();
-            return xmlDoc.FirstChild;
-        }
+
+        public TimeSpan Tiempo { set {
+
+                swbtnTime.Text = value.ToHoursMinutesSeconds();
+            } }
+
+       
 
 
         private void btnHistoryOrDelete_ChangeIndex(object sender, Gabriel.Cat.Uwp.ToggleButtonArgs e)
@@ -154,9 +123,8 @@ namespace CronosHistory_UWP
             {
 
                 //abro el historial
-                OpenHistory(this, new ItemCronosOpenHistoriArgs(lstHistorialTiempos));
-                totalTiempo = lstHistorialTiempos.TotalTime;
-                swbtnTime.Text = totalTiempo.ToHoursMinutesSeconds();
+                OpenHistory(this, new ItemCronosOpenHistoriArgs(itemCronos));
+                //ya no volverá...será otro nuevo asi que no vale la pena...
             }
 
         }
@@ -165,29 +133,8 @@ namespace CronosHistory_UWP
         {
             EstaEncendido = !EstaEncendido;
         }
-        public static ItemCronos[] LoadItemsFromXml(XmlDocument xml)
-        {
-            List<ItemCronos> items = new List<ItemCronos>();
-            ItemCronos item;
-            for (int i = 0; i < xml.FirstChild.ChildNodes.Count; i++)
-            {
-                item = new ItemCronos(xml.FirstChild.ChildNodes[i]);
 
-                items.Add(item);
-            }
-            return items.ToArray();
-        }
-        public static XmlDocument ToXml(ItemCronos[] items)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            text doc = "<CronosHistory>";
-            for (int i = 0; i < items.Length; i++)
-                doc &= items[i].ToNodoXml().OuterXml;
-            doc &= "</CronosHistory>";
-            xmlDoc.InnerXml = doc;
-            xmlDoc.Normalize();
-            return xmlDoc;
-        }
+
     }
     public class ItemCronosEventArgs : EventArgs
     {

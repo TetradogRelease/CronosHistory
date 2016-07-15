@@ -26,88 +26,49 @@ namespace CronosHistory_UWP
         {
             Inicio, Descripcion, Tiempo
         }
+        itemHistory itemHistory;
         Historial parent;
-        DateTimeOffset inicio;
-        TimeSpan tiempo;
         public event EventHandler Eliminar;
-        public ItemHistorial(Historial parent)
+        public ItemHistorial(Historial parent,itemHistory itemHistory)
         {
-
+            this.itemHistory = itemHistory;
             this.parent = parent;
             InitializeComponent();
 
         }
-        public ItemHistorial(Historial parent, DateTimeOffset inicio):this(parent)
-        {
-            Inicio = inicio;
-            Tiempo = DateTime.Now - inicio;
-        }
-        public ItemHistorial(Historial parent, DateTimeOffset fecha, TimeSpan tiempo):this(parent)
-        {
-            Inicio = fecha;
-            Tiempo = tiempo;
-        }
-        public ItemHistorial(Historial parent, XmlNode nodoData):this(parent)
-        {
-            Inicio = new DateTimeOffset(new DateTime(Convert.ToInt64(nodoData.ChildNodes[(int)XmlCampos.Inicio].InnerText)));
-            Tiempo = new TimeSpan(Convert.ToInt64(nodoData.ChildNodes[(int)XmlCampos.Tiempo].InnerText));
-            Description = nodoData.ChildNodes[(int)XmlCampos.Descripcion].InnerText.DescaparCaracteresXML();
 
-        }
-
-
-        public DateTimeOffset Inicio
+        public DateTime Inicio
         {
-            get { return inicio; }
+            get { return itemHistory.Inicio; }
             set
             {
-                inicio = value;
-                txtFechaInicio.Text = inicio.ToString().Replace(" ", "\n");
+                itemHistory.Inicio = value;
+                txtFechaInicio.Text = Inicio.ToString().Replace(" ", "\n");
             }
         }
         public TimeSpan Tiempo
         {
-            get { return tiempo; }
+            get { return itemHistory.Tiempo; }
             set
             {
-                tiempo = value;
-                txtTiempoHecho.Text = tiempo.ToString();
+                itemHistory.Tiempo = value;
+                txtTiempoHecho.Text = Tiempo.ToHoursMinutesSeconds();
             }
         }
         public string Description
         {
-            get { return txtDescripcion.Text; }
+            get { return itemHistory.Contenido; }
             set
             {
-
-                    txtDescripcion.Text = value;
-                
+                itemHistory.Contenido = value;
+                txtDescripcion.Text = itemHistory.Contenido;
             }
         }
-        public XmlNode ToXmlNode()
+        public itemHistory ItemHistory
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            text nodo = "<ItemHistory>";
-            nodo &= (text)"<FechaInicio>" & Inicio.Ticks & "</FechaInicio>";
-            nodo &= (text)"<Descripcion>" & Description.EscaparCaracteresXML() & "</Descripcion>";
-            nodo &= (text)"<Tiempo>" & Tiempo.Ticks & "</Tiempo>";
-            nodo &= "</ItemHistory>";
-            xmlDoc.InnerXml = nodo;
-            return xmlDoc.FirstChild;
+            get { return itemHistory; }
         }
-        public static void AddItemsXml(Historial parent, XmlNode nodoItemCronos)
-        {
-            if (parent == null || nodoItemCronos == null)
-                throw new ArgumentNullException();
 
-            for (int i = 0, f = nodoItemCronos.ChildNodes.Count; i < f; i++)
-                try
-                {
-                    parent.Add(new ItemHistorial(parent, nodoItemCronos.ChildNodes[i]));
-                }
-                catch { }
-
-        }
 
         private async void EliminarAlPresionar(object sender, PointerRoutedEventArgs e)
         {

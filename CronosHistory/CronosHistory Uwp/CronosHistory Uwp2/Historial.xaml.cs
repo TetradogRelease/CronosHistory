@@ -26,37 +26,27 @@ namespace CronosHistory_UWP
     /// </summary>
     public sealed partial class Historial : Page
     {
-        MainPage backPage;
-        Historial nextPage;
+        itemCronos[] todosLosItems;
+        itemCronos item;
         public Historial()
         {
             this.InitializeComponent();
         }
-        public Historial(XmlNode nodoItemCronos):this()
-        {
-            ItemHistorial.AddItemsXml(this, nodoItemCronos);
-        }
-        internal MainPage Back
-        {
-            get { return backPage; }
-        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //cargo la pagina que tenia que cargar y cojo el main para volver atrás
-            Page[] pages = e.Parameter as Page[];
-            
-            ItemHistorial item;
-            nextPage = pages[1] as Historial;
-            backPage = pages[0] as MainPage;
             base.OnNavigatedFrom(e);
-            for (int i = 0; i < nextPage.stkHistorial.Children.Count; i++)
+            //cargo la pagina que tenia que cargar y cojo el main para volver atrás
+            Object[] items = e.Parameter as Object[];
+            if (items != null)
             {
-                item = nextPage.stkHistorial.Children[i] as ItemHistorial;
-                nextPage.stkHistorial.Children.Remove(item);
-                Add(item);
+                todosLosItems = items[1] as itemCronos[];
+                item = items[0] as itemCronos;
+                for (int i = 0; i < item.Historial.Count; i++)
+                    stkHistorial.Children.Add(new ItemHistorial(this, item.Historial[i]));
+
             }
 
-            nextPage.backPage = null;
             
         }
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -112,17 +102,7 @@ namespace CronosHistory_UWP
                 else ((ItemHistorial)stkHistorial.Children[i]).Background = Windows.UI.Colors.White.ToBrush();
         }
 
-        public XmlNode ToNodoXml()
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            text nodo = "<HistoryCronos>";
-            for (int i = 0; i < stkHistorial.Children.Count; i++)
-                nodo &= (stkHistorial.Children[i] as ItemHistorial).ToXmlNode().OuterXml;
-            nodo &= "</HistoryCronos>";
-            xmlDoc.InnerXml = nodo;
-            xmlDoc.Normalize();
-            return xmlDoc.FirstChild;
-        }
+
 
 
         private void btnAñadirCustom_Click(object sender, RoutedEventArgs e)
@@ -134,7 +114,7 @@ namespace CronosHistory_UWP
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage),backPage);
+            Frame.Navigate(typeof(MainPage),todosLosItems);
         }
     }
 }

@@ -30,25 +30,27 @@ namespace CronosHistory_Uwp
     public sealed partial class MainPage : Page
     {
         readonly string nombreArchivo ="CronosHistory.xml";
-        List<ItemCronos> items;
+        List<itemCronos> items;
+        List<ItemCronos> itemsControls;
         StorageFolder folder = ApplicationData.Current.LocalFolder;
         public MainPage()
         {
            
             Image imgCronosPlus = new Image(), imgCronosMinus = new Image(), imgCronosOK = new Image();
-            items = new List<ItemCronos>();
+            items = new List<itemCronos>();
             InitializeComponent();
+            itemsControls = new List<ItemCronos>();
             
             MainBaseUri = this.BaseUri;
-            imgCronosPlus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/Cronos+.png"));
-            imgCronosMinus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/Cronos-.png"));
-            imgCronosOK.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/CronosOK.png"));
+            imgCronosPlus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Cronos+.png"));
+            imgCronosMinus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Cronos-.png"));
+            imgCronosOK.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/CronosOK.png"));
             btnAñadir.Images.Afegir(imgCronosPlus);
             btnQuitarOOK.Images.Afegir(imgCronosMinus);
             btnQuitarOOK.Images.Afegir(imgCronosOK);
             btnQuitarOOK.Index = 0;
-            imgBarra.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/barra.jpg"));
-            imgReloj.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets3/cronosReloj2.jpg"));
+            imgBarra.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/barra.jpg"));
+            imgReloj.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/cronosReloj.jpg"));
             Application.Current.Suspending +=  (s, e) => {  SaveXml(); };
             Application.Current.Resuming += (s, e) => { LoadXml(); };
             LoadXml();
@@ -65,11 +67,11 @@ namespace CronosHistory_Uwp
         {
             //paro los que esten encendidos
             for (int i = 0; i < items.Count; i++)
-                if (items[i].EstaEncendido)
-                    items[i].EstaEncendido = false;
+                if (items[i].EstaOn)
+                    items[i].EstaOn = false;
             //genero el xml
             if (items.Count != 0)
-               ItemCronos.ToXml(items.ToArray()).Save(folder,nombreArchivo);
+               itemCronos.ToXml(items.ToArray()).Save(folder,nombreArchivo);
             else if (File.Exists(nombreArchivo))
                 File.Delete(nombreArchivo.ToString());
         }
@@ -77,19 +79,20 @@ namespace CronosHistory_Uwp
         private  void LoadXml()
         {
             System.Xml.XmlDocument xml;
-            ItemCronos[] itemsCargados;
+            itemCronos[] itemsCargados;
             if (File.Exists(folder.Path + Path.AltDirectorySeparatorChar + nombreArchivo))
             {
                 try
                 {
                     xml = new System.Xml.XmlDocument();
                     xml.Load(folder, nombreArchivo);
-                    itemsCargados = ItemCronos.LoadItemsFromXml(xml);
-                    stkTiempos.Children.AddRange(itemsCargados);
+                    itemsCargados = itemCronos.LoadXml(xml);
+                    itemsControls.AddRange(ItemCronos.ToControl(itemsCargados));
+                    stkTiempos.Children.AddRange(itemsControls);
                     items.AddRange(itemsCargados);
                     ActualizaBackGroundItems();
                     for (int i = 0; i < itemsCargados.Length; i++)
-                        itemsCargados[i].OpenHistory += OpenHistoryEvent;
+                        itemsControls[i].OpenHistory += OpenHistoryEvent;
                 }
                 catch (Exception e){
 
@@ -98,15 +101,17 @@ namespace CronosHistory_Uwp
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            MainPage main=e.Parameter as MainPage;
+            itemCronos[] todosLosItems=e.Parameter as itemCronos[];
+            ItemCronos item;
             base.OnNavigatedTo(e);
-            if(main!=null)
-            for(int i=0;i<main.items.Count;i++)
+            if(todosLosItems!=null)
+            for(int i=0;i<todosLosItems.Length;i++)
             {
-                items.Add(main.items[i]);
-                main.stkTiempos.Children.Remove(items[i]);
-                stkTiempos.Children.Add(items[i]);
-                items[i].OpenHistory += OpenHistoryEvent;
+                items.Add(todosLosItems[i]);
+                item =new ItemCronos(todosLosItems[i]);
+                itemsControls.Add(item);
+                stkTiempos.Children.Add(item);
+                item.OpenHistory += OpenHistoryEvent;
             }
 
         }
@@ -114,10 +119,8 @@ namespace CronosHistory_Uwp
 
         private void OpenHistoryEvent(object sender, ItemCronosOpenHistoriArgs e)
         {
-            for (int i = 0; i < items.Count; i++)//quito los eventos
-                items[i].OpenHistory -= OpenHistoryEvent;
 
-            Frame.Navigate(typeof(Historial),new Page[] { this, e.Historial });
+            Frame.Navigate(typeof(Historial),new Object[] { e.Historial, items.ToArray()});
         }
 
         private void ActualizaBackGroundItems()
@@ -132,7 +135,8 @@ namespace CronosHistory_Uwp
         {
             ItemCronos newItem = new ItemCronos();
             newItem.OpenHistory += OpenHistoryEvent;
-            items.Insert(0, newItem);
+            items.Insert(0,newItem.Item);
+            itemsControls.Insert(0, newItem);
             stkTiempos.Children.Insert(0, newItem);
             ActualizaBackGroundItems();
         }
@@ -155,17 +159,20 @@ namespace CronosHistory_Uwp
                         for (int i = 0; i < stkTiempos.Children.Count; i++)
                         {
                             item = stkTiempos.Children[i] as ItemCronos;
-                            if (item.PendienteDeEliminar)
-                                itemsPerTreure.Add(item);
+                        if (item.PendienteDeEliminar)
+                        {
+                            itemsPerTreure.Add(item);
+                            items.Remove(item.Item);
+                        }
 
                         }
-                        items.RemoveRange(itemsPerTreure);
+                        itemsControls.RemoveRange(itemsPerTreure);
                         stkTiempos.Children.RemoveRange(itemsPerTreure);
                         ActualizaBackGroundItems();
                     }
                 }
                 for (int i = 0; i < items.Count; i++)
-                    items[i].HistorialVisible = btnQuitarOOK.Index == 0;
+                    itemsControls[i].HistorialVisible = btnQuitarOOK.Index == 0;
                 btnAñadir.Visibility = btnQuitarOOK.Index == 0 ? Visibility.Visible : Visibility.Collapsed;
 
         }
@@ -174,7 +181,7 @@ namespace CronosHistory_Uwp
         {
 
             bool hay = false;
-            items.WhileEach((item) =>
+            itemsControls.WhileEach((item) =>
             {
                 hay = item.PendienteDeEliminar;
                 return !hay;
