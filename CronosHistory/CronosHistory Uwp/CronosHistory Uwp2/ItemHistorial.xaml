@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="txtFechaInicio" PointerPressed="EliminarAlPresionar" TextWrapping="Wrap"/>
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" MaxHeight="250">
-            <TextBox x:Name="txtDescripcion" TextChanged="txtDescripcion_TextChanged"/>
+            <TextBox x:Name="txtDescripcion" TextChanged="txtDescripcion_TextChanged" Text=""/>
         </ScrollViewer>
         <TextBlock x:Name="txtTiempoHecho" Grid.Column="2" TextAlignment="Center" PointerPressed="EliminarAlPresionar" />
     </Grid>

@@ -108,10 +108,10 @@ namespace CronosHistory_UWP
         public static XmlDocument ToXml(itemCronos[] items)
         {
             XmlDocument xmlDoc = new XmlDocument();
-            text doc = "<CronosHistory>";
+            string doc = "<CronosHistory>";
             for (int i = 0; i < items.Length; i++)
-                doc &= items[i].ToNodoXml().OuterXml;
-            doc &= "</CronosHistory>";
+                doc += items[i].ToNodoXml().OuterXml;
+            doc += "</CronosHistory>";
             xmlDoc.InnerXml = doc;
             xmlDoc.Normalize();
             return xmlDoc;
@@ -187,22 +187,22 @@ namespace CronosHistory_UWP
         public XmlNode ToNodoXml()
         {
             XmlDocument xmlDoc = new XmlDocument();
-            text nodo = "<ItemHistory>";
-            nodo &= (text)"<FechaInicio>" & Inicio.Ticks & "</FechaInicio>";
-            nodo &= (text)"<Descripcion>" & Contenido.EscaparCaracteresXML() & "</Descripcion>";
-            nodo &= (text)"<Tiempo>" & Tiempo.Ticks & "</Tiempo>";
-            nodo &= "</ItemHistory>";
+            string nodo = "<ItemHistory>";
+            nodo += "<FechaInicio>" + Inicio.Ticks + "</FechaInicio>";
+            nodo += "<Descripcion>" + Contenido.EscaparCaracteresXML() + "</Descripcion>";
+            nodo += "<Tiempo>" + Tiempo.Ticks + "</Tiempo>";
+            nodo += "</ItemHistory>";
             xmlDoc.InnerXml = nodo;
             return xmlDoc.FirstChild;
         }
         public static XmlNode ToXml(IEnumerable<itemHistory> itemsHistorial)
         {
             XmlDocument xmlDoc = new XmlDocument();
-            text nodo = "<Historial>";
+            string nodo = "<Historial>";
             if(itemsHistorial!=null)
             foreach (itemHistory item in itemsHistorial)
-                nodo &= item.ToNodoXml().OuterXml;
-            nodo &= "</Historial>";
+                nodo += item.ToNodoXml().OuterXml;
+            nodo += "</Historial>";
             xmlDoc.LoadXml(nodo);
             xmlDoc.Normalize();
             return xmlDoc.FirstChild;

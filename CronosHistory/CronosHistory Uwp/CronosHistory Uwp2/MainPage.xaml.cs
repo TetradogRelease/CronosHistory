@@ -121,6 +121,7 @@ namespace CronosHistory_Uwp
                     stkTiempos.Children.Add(item);
                     item.OpenHistory += OpenHistoryEvent;
                 }
+                ActualizaBackGroundItems();
             }
 
         }
@@ -144,9 +145,9 @@ namespace CronosHistory_Uwp
         {
             ItemCronos newItem = new ItemCronos();
             newItem.OpenHistory += OpenHistoryEvent;
-            items.Insert(0,newItem.Item);
-            itemsControls.Insert(0, newItem);
-            stkTiempos.Children.Insert(0, newItem);
+            items.Add(newItem.Item);
+            itemsControls.Add(newItem);
+            stkTiempos.Children.Add(newItem);
             ActualizaBackGroundItems();
         }
 

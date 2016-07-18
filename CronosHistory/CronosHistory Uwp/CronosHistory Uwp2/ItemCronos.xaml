@@ -33,7 +33,7 @@
             <uwp:ToggleButton x:Name="btnHistoryOrDelete" ChangeIndex="btnHistoryOrDelete_ChangeIndex" Grid.Row="1"  Margin="16,0,7,0" />
         </Grid>
         <ScrollViewer Grid.Column="2" Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxHeight="100" >
-            <TextBox x:Name="txtNombreElemento" />
+            <TextBox x:Name="txtNombreElemento"  Text=""/>
         </ScrollViewer>
         <Grid Grid.Column="4" Grid.Row="1" >
             <Grid.RowDefinitions>
