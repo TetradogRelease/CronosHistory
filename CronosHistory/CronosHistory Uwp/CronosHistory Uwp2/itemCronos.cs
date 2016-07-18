@@ -24,6 +24,7 @@ namespace CronosHistory_UWP
         {
             historial = new Llista<itemHistory>();
             tskContadorTiempo = new Task(new Action(() => { ContarTiempo(); }));
+            texto = "";
         }
 
 
@@ -66,7 +67,7 @@ namespace CronosHistory_UWP
         {
             get
             {
-                TimeSpan tiempoTotal = TimeSpan.MinValue;
+                TimeSpan tiempoTotal = new TimeSpan();
                 for (int i = 0; i < historial.Count; i++)
                     tiempoTotal += historial[i].Tiempo;
                 return tiempoTotal;

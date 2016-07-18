@@ -26,40 +26,14 @@ namespace CronosHistory_UWP
     /// </summary>
     public sealed partial class Historial : Page
     {
-        itemCronos[] todosLosItems;
+        Object todosLosItems;
         itemCronos item;
         public Historial()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-            //cargo la pagina que tenia que cargar y cojo el main para volver atrás
-            Object[] items = e.Parameter as Object[];
-            if (items != null)
-            {
-                todosLosItems = items[1] as itemCronos[];
-                item = items[0] as itemCronos;
-                for (int i = 0; i < item.Historial.Count; i++)
-                    stkHistorial.Children.Add(new ItemHistorial(this, item.Historial[i]));
 
-            }
-
-            
-        }
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            ItemHistorial item;
-            base.OnNavigatedFrom(e);
-            for(int i=0;i<stkHistorial.Children.Count;i++)
-            {
-                item = stkHistorial.Children[i] as ItemHistorial;
-                stkHistorial.Children.Remove(item);
-                nextPage.stkHistorial.Children.Add(item);
-            }
-        }
         public TimeSpan TotalTime
         {
             get
@@ -75,23 +49,51 @@ namespace CronosHistory_UWP
             get { return ckSaltarConfirmacion.IsChecked != null && ckSaltarConfirmacion.IsChecked.Value; }
         }
 
-        public void Add(ItemHistorial item)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            try
+
+            base.OnNavigatedTo(e);
+            Cargar(e.Parameter as Object[]);
+
+
+        }
+
+        private void Cargar(object[] items)
+        {
+      
+
+            if (items != null)
             {
+                todosLosItems = items[1];
+                item = items[0] as itemCronos;
+                for (int i = 0; i < item.Historial.Count; i++)
+                    Add(new ItemHistorial(this, item.Historial[i]), false);
+
+            }
+        }
+        public void Add(ItemHistorial item,bool añadir=true)
+        {
+            Action act;
                 item.Eliminar += (s, e) =>
                 {
-                    Action act = () =>
+                     act = () =>
                     {
-                        stkHistorial.Children.Remove(s as ItemHistorial);
+                        ItemHistorial itemHistorial = s as ItemHistorial;
+                        stkHistorial.Children.Remove(itemHistorial);
+                        this.item.Historial.Elimina(itemHistorial.ItemHistory);//lo quito para que conste
                         ActualizaBackGroundItems();
                     };
                     Dispatcher.BeginInvoke(act);
                 };
-                stkHistorial.Children.Add(item);
-                ActualizaBackGroundItems();
-            }
-            catch { }
+                if(añadir)
+                this.item.Historial.Afegir(item.ItemHistory);//lo añado para que se guarde
+            act = () =>
+              {
+                  stkHistorial.Children.Add(item);
+                  ActualizaBackGroundItems();
+              };
+            Dispatcher.BeginInvoke(act);
+
         }
 
         private void ActualizaBackGroundItems()
@@ -108,7 +110,7 @@ namespace CronosHistory_UWP
         private void btnAñadirCustom_Click(object sender, RoutedEventArgs e)
         {
             //hacen clic
-            Frame.Navigate(typeof(winAñadirItemManual),this);
+            Frame.Navigate(typeof(winAñadirItemManual),new object[] { item,todosLosItems});
 
         }
 

@@ -11,13 +11,13 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="80"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="102"/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="txtFechaInicio" PointerPressed="EliminarAlPresionar"/>
+        <TextBlock x:Name="txtFechaInicio" PointerPressed="EliminarAlPresionar" TextWrapping="Wrap"/>
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" MaxHeight="250">
-            <TextBlock x:Name="txtDescripcion" PointerPressed="EliminarAlPresionar"  />
+            <TextBox x:Name="txtDescripcion" TextChanged="txtDescripcion_TextChanged"/>
         </ScrollViewer>
         <TextBlock x:Name="txtTiempoHecho" Grid.Column="2" TextAlignment="Center" PointerPressed="EliminarAlPresionar" />
     </Grid>

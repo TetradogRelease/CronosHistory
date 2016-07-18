@@ -38,8 +38,9 @@ namespace CronosHistory_Uwp
            
             Image imgCronosPlus = new Image(), imgCronosMinus = new Image(), imgCronosOK = new Image();
             items = new List<itemCronos>();
-            InitializeComponent();
             itemsControls = new List<ItemCronos>();
+            InitializeComponent();
+           
             
             MainBaseUri = this.BaseUri;
             imgCronosPlus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Cronos+.png"));
@@ -101,17 +102,20 @@ namespace CronosHistory_Uwp
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            itemCronos[] todosLosItems=e.Parameter as itemCronos[];
+            List<itemCronos> todosLosItems =e.Parameter as List<itemCronos>;
             ItemCronos item;
             base.OnNavigatedTo(e);
-            if(todosLosItems!=null)
-            for(int i=0;i<todosLosItems.Length;i++)
+            if (todosLosItems != null)
             {
-                items.Add(todosLosItems[i]);
-                item =new ItemCronos(todosLosItems[i]);
-                itemsControls.Add(item);
-                stkTiempos.Children.Add(item);
-                item.OpenHistory += OpenHistoryEvent;
+                items = todosLosItems;//restauro los items que tenia
+                for (int i = 0; i < todosLosItems.Count; i++)
+                {
+                   
+                    item = new ItemCronos(todosLosItems[i]);
+                    itemsControls.Add(item);
+                    stkTiempos.Children.Add(item);
+                    item.OpenHistory += OpenHistoryEvent;
+                }
             }
 
         }
@@ -120,7 +124,7 @@ namespace CronosHistory_Uwp
         private void OpenHistoryEvent(object sender, ItemCronosOpenHistoriArgs e)
         {
 
-            Frame.Navigate(typeof(Historial),new Object[] { e.Historial, items.ToArray()});
+            Frame.Navigate(typeof(Historial),new Object[] { e.Historial, items});
         }
 
         private void ActualizaBackGroundItems()

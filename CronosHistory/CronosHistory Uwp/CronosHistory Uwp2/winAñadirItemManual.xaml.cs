@@ -22,44 +22,42 @@ namespace CronosHistory_UWP
     /// </summary>
     public sealed partial class winAñadirItemManual : Page
     {
-        Historial backPage;
+        Object[] sesionData;
         public winAñadirItemManual()
         {
-            GuardarItem = false;
             this.InitializeComponent();
             dpFecha.Date = DateTimeOffset.Now;
+            tpTiempoHecho.Time = new TimeSpan();
+            tpTiempoHecho.MinuteIncrement = 1;
+            
         }
-        
-        public bool GuardarItem
-        {
-            get;
 
-            private set;
-        }
         public TimeSpan Tiempo
         {
             get { return tpTiempoHecho.Time; }
         }
-        public DateTimeOffset Fecha
+        public DateTime Fecha
         {
             get
             {
-                return dpFecha.Date + tpTiempoFecha.Time;
+                DateTime fecha = new DateTime(dpFecha.Date.Year, dpFecha.Date.Month, dpFecha.Date.Day, tpTiempoFecha.Time.Hours, tpTiempoFecha.Time.Minutes, tpTiempoFecha.Time.Seconds, tpTiempoFecha.Time.Milliseconds);
+                return fecha;
             }
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            sesionData = e.Parameter as Object[];
             base.OnNavigatedTo(e);
-            backPage = e.Parameter as Historial;
         }
         private void Back()
         {
-            Frame.Navigate(typeof(Historial), new Page[] { backPage.Back , backPage });
+            Frame.Navigate(typeof(Historial), sesionData);
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            backPage.Add(new ItemHistorial(backPage, Fecha, Tiempo));
+            itemCronos parent = (sesionData[0] as itemCronos);
+            parent.Historial.Afegir(new itemHistory( Fecha, Tiempo));
             Back();
         }
 

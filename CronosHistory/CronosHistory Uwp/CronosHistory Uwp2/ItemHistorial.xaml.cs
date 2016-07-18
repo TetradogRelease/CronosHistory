@@ -31,12 +31,23 @@ namespace CronosHistory_UWP
         public event EventHandler Eliminar;
         public ItemHistorial(Historial parent,itemHistory itemHistory)
         {
-            this.itemHistory = itemHistory;
+           
             this.parent = parent;
             InitializeComponent();
+            this.ItemHistory = itemHistory;
 
         }
-
+        public itemHistory ItemHistory
+        {
+            get { return itemHistory; }
+            set
+            {
+                itemHistory = value;
+                txtDescripcion.Text = itemHistory.Contenido;
+                txtFechaInicio.Text = itemHistory.Inicio.ToString();
+                txtTiempoHecho.Text = itemHistory.Tiempo.ToHoursMinutesSeconds();
+            }
+        }
         public DateTime Inicio
         {
             get { return itemHistory.Inicio; }
@@ -64,11 +75,6 @@ namespace CronosHistory_UWP
                 txtDescripcion.Text = itemHistory.Contenido;
             }
         }
-        public itemHistory ItemHistory
-        {
-            get { return itemHistory; }
-        }
-
 
         private async void EliminarAlPresionar(object sender, PointerRoutedEventArgs e)
         {
@@ -87,6 +93,11 @@ namespace CronosHistory_UWP
                         Eliminar(this, new EventArgs());
                     }
             }
+        }
+
+        private void txtDescripcion_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            itemHistory.Contenido = txtDescripcion.Text;
         }
     }
 }

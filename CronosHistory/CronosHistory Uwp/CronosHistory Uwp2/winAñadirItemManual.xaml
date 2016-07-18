@@ -7,20 +7,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"  >
     <StackPanel Background="White" >
-        <TextBlock Text="Fecha" HorizontalAlignment="Center" />
-        <DatePicker  x:Name="dpFecha" HorizontalAlignment="Center"/>
-        <TimePicker x:Name="tpTiempoFecha" HorizontalAlignment="Center"/>
-        <TextBlock Text="Tiempo" HorizontalAlignment="Center"/>
-        <TimePicker x:Name="tpTiempoHecho" HorizontalAlignment="Center"/>
+        <DatePicker  x:Name="dpFecha"  Header="Fecha"/>
+        <TimePicker x:Name="tpTiempoFecha"  Header="Hora"/>
+        <TimePicker x:Name="tpTiempoHecho"  Header="Tiempo Hecho"/>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+            
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnGuardar" Content="Guardar" Grid.Column="1" Click="btnGuardar_Click"/>
+            <Button x:Name="btnGuardar" Content="Guardar" Grid.Column="0" Grid.Row="1" Click="btnGuardar_Click"/>
 
-            <Button x:Name="btnBack" Content="Back" Grid.Column="2" Click="btnBack_Click" />
+            <Button x:Name="btnBack" Content="Atrás" Grid.Column="1" Grid.Row="1" Click="btnBack_Click"  HorizontalAlignment="Right"/>
         </Grid>
 
     </StackPanel>
