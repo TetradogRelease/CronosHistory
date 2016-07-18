@@ -5,7 +5,7 @@
   <Properties>
     <DisplayName>CronosHistory Uwp2</DisplayName>
     <PublisherDisplayName>tetra</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\StoreLogo.jpg</Logo>
   </Properties>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
@@ -15,10 +15,16 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="CronosHistory_Uwp2.App">
-      <uap:VisualElements DisplayName="CronosHistory" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Es una aplicación para controlar el tiempo que se le dedica a una tarea y poder documentar lo que se ha hecho a modo de diario." BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+      <uap:VisualElements DisplayName="CronosHistory" Square150x150Logo="Assets\Square150x150Logo.jpg" Square44x44Logo="Assets\Square44x44Logo.jpg" Description="Es una aplicación para controlar el tiempo que se le dedica a una tarea y poder documentar lo que se ha hecho a modo de diario." BackgroundColor="green">
+        <uap:LockScreen Notification="badge" BadgeLogo="Assets\BadgeLogo.jpg" />
+        <uap:DefaultTile ShortName="Cronos History" Square71x71Logo="Assets\Square71x71Logo.jpg" Square310x310Logo="Assets\Square310x310Logo.jpg" Wide310x150Logo="Assets\Wide310x150Logo.jpg">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="green" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape" />
           <uap:Rotation Preference="landscapeFlipped" />
