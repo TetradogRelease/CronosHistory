@@ -29,6 +29,7 @@ namespace CronosHistory_Uwp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        static bool EstaCargado = false;
         readonly string nombreArchivo ="CronosHistory.xml";
         List<itemCronos> items;
         List<ItemCronos> itemsControls;
@@ -40,9 +41,9 @@ namespace CronosHistory_Uwp
             items = new List<itemCronos>();
             itemsControls = new List<ItemCronos>();
             InitializeComponent();
-           
-            
             MainBaseUri = this.BaseUri;
+            
+           
             imgCronosPlus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Cronos+.png"));
             imgCronosMinus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Cronos-.png"));
             imgCronosOK.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/CronosOK.png"));
@@ -52,9 +53,11 @@ namespace CronosHistory_Uwp
             btnQuitarOOK.Index = 0;
             imgBarra.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/barra.jpg"));
             imgReloj.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/cronosReloj.jpg"));
-            Application.Current.Suspending +=  (s, e) => {  SaveXml(); };
-            Application.Current.Resuming += (s, e) => { LoadXml(); };
-            LoadXml();
+            Application.Current.Suspending +=  (s, e) => {   SaveXml(); };
+            Application.Current.Resuming += (s, e) => {  LoadXml(); };
+            if(!EstaCargado)
+                LoadXml();
+           
         }
 
 
@@ -73,15 +76,15 @@ namespace CronosHistory_Uwp
             //genero el xml
             if (items.Count != 0)
                itemCronos.ToXml(items.ToArray()).Save(folder,nombreArchivo);
-            else if (File.Exists(nombreArchivo))
-                File.Delete(nombreArchivo.ToString());
+            else if (folder.Exist(nombreArchivo))
+                folder.DeleteFile(nombreArchivo);
         }
 
         private  void LoadXml()
         {
             System.Xml.XmlDocument xml;
             itemCronos[] itemsCargados;
-            if (File.Exists(folder.Path + Path.AltDirectorySeparatorChar + nombreArchivo))
+            if (folder.Exist(nombreArchivo))
             {
                 try
                 {
@@ -97,6 +100,10 @@ namespace CronosHistory_Uwp
                 }
                 catch (Exception e){
 
+                }
+                finally
+                {
+                    EstaCargado = true;
                 }
             }
         }

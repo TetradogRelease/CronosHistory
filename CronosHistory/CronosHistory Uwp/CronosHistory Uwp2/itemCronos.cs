@@ -17,13 +17,14 @@ namespace CronosHistory_UWP
         #region ContadorTiempo
         bool estaOn;
         DateTime inicioTiempo;
+        Action actContadorTiempo;
         Task tskContadorTiempo;
         public ItemCronos ItemParent{get;set; }
         #endregion
         public itemCronos()
         {
             historial = new Llista<itemHistory>();
-            tskContadorTiempo = new Task(new Action(() => { ContarTiempo(); }));
+            actContadorTiempo = new Action(() => { ContarTiempo(); });
             texto = "";
         }
 
@@ -43,6 +44,7 @@ namespace CronosHistory_UWP
                 if(!EstaOn&&value)
                 {
                     estaOn = true;
+                    tskContadorTiempo = new Task(actContadorTiempo);
                     tskContadorTiempo.Start();
 
                 }
@@ -116,9 +118,9 @@ namespace CronosHistory_UWP
         }
         public static itemCronos[] LoadXml(XmlDocument xmlItems)
         {
-            itemCronos[] items = new itemCronos[xmlItems.ChildNodes[0].ChildNodes.Count];
+            itemCronos[] items = new itemCronos[xmlItems.ChildNodes[1].ChildNodes.Count];
             for (int i = 0; i < items.Length; i++)
-                items[i] = new itemCronos(xmlItems.ChildNodes[0].ChildNodes[i]);
+                items[i] = new itemCronos(xmlItems.ChildNodes[1].ChildNodes[i]);
             return items;
         }
     }
@@ -134,7 +136,8 @@ namespace CronosHistory_UWP
         public itemHistory(DateTime inicio, TimeSpan tiempo, string texto)
         {
             Inicio = inicio;
-            Tiempo = tiempo;
+            Tiempo = TimeSpan.FromSeconds(Convert.ToInt32(tiempo.TotalSeconds));
+            
             Contenido = texto;
         }
         public itemHistory(XmlNode nodoItemHistory)

@@ -34,7 +34,14 @@
         <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" MaxHeight="100" >
             <TextBox x:Name="txtNombreElemento" />
         </ScrollViewer>
-        <uwp:SwitchButtonLabel x:Name="swbtnTime" Foreground="White" Grid.Column="4" Background="White" />
+        <Grid Grid.Column="4" >
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <uwp:SwitchButtonLabel x:Name="swbtnTime" Grid.Row="1" Foreground="White" />
+        </Grid>
 
 
     </Grid>
