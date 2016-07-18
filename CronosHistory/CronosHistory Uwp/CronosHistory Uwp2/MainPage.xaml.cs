@@ -42,8 +42,6 @@ namespace CronosHistory_Uwp
             itemsControls = new List<ItemCronos>();
             InitializeComponent();
             MainBaseUri = this.BaseUri;
-            
-           
             imgCronosPlus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Cronos+.png"));
             imgCronosMinus.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/Cronos-.png"));
             imgCronosOK.Source = new BitmapImage(new Uri(this.BaseUri, "/Assets/CronosOK.png"));
@@ -138,8 +136,8 @@ namespace CronosHistory_Uwp
         {
             for (int i = 0; i < stkTiempos.Children.Count; i++)
                 if (i % 2 == 0)
-                    ((ItemCronos)stkTiempos.Children[i]).Background = Windows.UI.Colors.LightBlue.ToBrush();
-                else ((ItemCronos)stkTiempos.Children[i]).Background = Windows.UI.Colors.White.ToBrush();
+                    ((ItemCronos)stkTiempos.Children[i]).Backcolor = Windows.UI.Colors.LightBlue;
+                else ((ItemCronos)stkTiempos.Children[i]).Backcolor = Windows.UI.Colors.White;
         }
 
         private void btnAñadir_ChangeIndex(object sender, Gabriel.Cat.Uwp.ToggleButtonArgs e)

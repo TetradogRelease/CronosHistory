@@ -50,9 +50,15 @@ namespace CronosHistory_UWP
             swbtnTime.Label.TextAlignment = TextAlignment.Center;
             swbtnTime.IndexChanged += (s, e) => { EstaEncendido = !EstaEncendido; };
             HistorialVisible = true;
-           
+            swbtnTime.Brushes.AfegirMolts(new Brush[] {Windows.UI.Colors.Salmon.ToBrush(),Windows.UI.Colors.LightGreen.ToBrush() });
             txtNombreElemento.Text = itemCronos.Descripcion;
             swbtnTime.Label.Text = itemCronos.TiempoTotal.ToHoursMinutesSeconds();
+            txtNombreElemento.TextWrapping = TextWrapping.Wrap;
+            
+        }
+        public Windows.UI.Color Backcolor
+        {
+            set { grControl.Background = value.ToBrush(); }
         }
         public itemCronos Item
         {

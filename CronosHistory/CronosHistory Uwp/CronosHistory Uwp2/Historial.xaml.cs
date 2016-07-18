@@ -100,8 +100,8 @@ namespace CronosHistory_UWP
         {
             for (int i = 0; i < stkHistorial.Children.Count; i++)
                 if (i % 2 == 0)
-                    ((ItemHistorial)stkHistorial.Children[i]).Background = Windows.UI.Colors.LightBlue.ToBrush();
-                else ((ItemHistorial)stkHistorial.Children[i]).Background = Windows.UI.Colors.White.ToBrush();
+                    ((ItemHistorial)stkHistorial.Children[i]).BackColor = Windows.UI.Colors.LightBlue;
+                else ((ItemHistorial)stkHistorial.Children[i]).BackColor = Windows.UI.Colors.White;
         }
 
 

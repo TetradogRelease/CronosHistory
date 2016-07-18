@@ -37,6 +37,10 @@ namespace CronosHistory_UWP
             this.ItemHistory = itemHistory;
 
         }
+        public Windows.UI.Color BackColor
+        {
+            set { grControl.Background = value.ToBrush(); }
+        }
         public itemHistory ItemHistory
         {
             get { return itemHistory; }

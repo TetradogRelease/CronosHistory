@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid >
+    <Grid  x:Name="grControl">
         <Grid.RowDefinitions>
             <RowDefinition  />
             <RowDefinition Height="5"/>
@@ -36,11 +36,11 @@
         </ScrollViewer>
         <Grid Grid.Column="4" >
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="131*"/>
+                <RowDefinition Height="34*"/>
+                <RowDefinition Height="130*"/>
             </Grid.RowDefinitions>
-            <uwp:SwitchButtonLabel x:Name="swbtnTime" Grid.Row="1" Foreground="White" />
+            <uwp:SwitchButtonLabel x:Name="swbtnTime" Grid.Row="1" Foreground="White" Height="Auto" Margin="0,12"  />
         </Grid>
 
 
