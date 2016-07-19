@@ -17,6 +17,9 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>CronosHistory Uwp2_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -55,14 +58,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <OutputPath>bin\ARM\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>ARM</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -112,6 +115,7 @@
     <None Include="CronosHistory Uwp2_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\BadgeLogo.scale-200.jpg" />
     <Content Include="Assets\BadgeLogo.scale-400.jpg" />
     <Content Include="Assets\barra.jpg" />
     <Content Include="Assets\BasuraOff.png" />
@@ -121,14 +125,24 @@
     <Content Include="Assets\CronosOK.png" />
     <Content Include="Assets\cronosReloj.jpg" />
     <Content Include="Assets\menuLineal.png" />
-    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.png" />
+    <Content Include="Assets\SplashScreen.scale-200.jpg" />
+    <Content Include="Assets\Square150x150Logo.scale-100.jpg" />
     <Content Include="Assets\Square150x150Logo.scale-200.jpg" />
     <Content Include="Assets\Square150x150Logo.scale-400.jpg" />
+    <Content Include="Assets\Square310x310Logo.scale-100.jpg" />
     <Content Include="Assets\Square310x310Logo.scale-200.jpg" />
+    <Content Include="Assets\Square310x310Logo.scale-400.jpg" />
     <Content Include="Assets\Square44x44Logo.scale-100.jpg" />
+    <Content Include="Assets\Square44x44Logo.scale-200.jpg" />
     <Content Include="Assets\Square44x44Logo.scale-400.jpg" />
+    <Content Include="Assets\Square71x71Logo.scale-100.jpg" />
+    <Content Include="Assets\Square71x71Logo.scale-200.jpg" />
     <Content Include="Assets\Square71x71Logo.scale-400.jpg" />
+    <Content Include="Assets\StoreLogo.scale-200.jpg" />
     <Content Include="Assets\StoreLogo.scale-400.jpg" />
+    <Content Include="Assets\Wide310x150Logo.scale-100.jpg" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.jpg" />
     <Content Include="Assets\Wide310x150Logo.scale-400.jpg" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
