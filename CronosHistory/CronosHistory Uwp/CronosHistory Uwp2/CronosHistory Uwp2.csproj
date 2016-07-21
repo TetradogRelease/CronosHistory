@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CronosHistory_UWP</RootNamespace>
     <AssemblyName>CronosHistory</AssemblyName>
-    <DefaultLanguage>es-ES</DefaultLanguage>
+    <DefaultLanguage>es</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
@@ -20,6 +20,7 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>8EE705EA5106B461BAA1FC0CA23047432E67E3FB</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -115,8 +116,8 @@
     <None Include="CronosHistory Uwp2_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\BadgeLogo.scale-200.jpg" />
-    <Content Include="Assets\BadgeLogo.scale-400.jpg" />
+    <Content Include="Assets\BadgeLogo.scale-200.png" />
+    <Content Include="Assets\BadgeLogo.scale-400.png" />
     <Content Include="Assets\barra.jpg" />
     <Content Include="Assets\BasuraOff.png" />
     <Content Include="Assets\BasuraOn.png" />

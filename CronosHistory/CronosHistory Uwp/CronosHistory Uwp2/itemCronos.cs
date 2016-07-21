@@ -32,7 +32,7 @@ namespace CronosHistory_UWP
 
         public itemCronos(XmlNode nodoItemCronos):this()
         {
-            Descripcion = nodoItemCronos.FirstChild.FirstChild.InnerText.DescaparCaracteresXML();
+            Descripcion = nodoItemCronos.FirstChild.FirstChild!=null ?nodoItemCronos.FirstChild.FirstChild.InnerText.DescaparCaracteresXML():"";
             historial.AfegirMolts(itemHistory.LoadXml(nodoItemCronos.LastChild));
         }
         public bool EstaOn
@@ -99,7 +99,10 @@ namespace CronosHistory_UWP
         {
             XmlDocument xmlDoc = new XmlDocument();
             string nodos = itemHistory.ToXml(historial).OuterXml;
-            string nodoItemCronos = "<ItemCronos><DescripcionItem>" + Descripcion.EscaparCaracteresXML() + "</DescripcionItem>";
+            string nodoItemCronos = "<ItemCronos>";
+            if (!String.IsNullOrEmpty(Descripcion))
+                nodoItemCronos += "<DescripcionItem>" + Descripcion.EscaparCaracteresXML() + "</DescripcionItem>";
+            else nodoItemCronos += "<DescripcionItem/>";
             nodoItemCronos += nodos + "</ItemCronos>";
             xmlDoc.LoadXml(nodoItemCronos);
             xmlDoc.Normalize();
@@ -143,7 +146,7 @@ namespace CronosHistory_UWP
         public itemHistory(XmlNode nodoItemHistory)
         {
             inicio = new DateTime(Convert.ToInt64(nodoItemHistory.ChildNodes[0].InnerText));
-            contenido = nodoItemHistory.ChildNodes[1].InnerText.DescaparCaracteresXML();
+            contenido = nodoItemHistory.ChildNodes[1]!=null ?nodoItemHistory.ChildNodes[1].InnerText.DescaparCaracteresXML():"";
             tiempo = new TimeSpan(Convert.ToInt64(nodoItemHistory.ChildNodes[2].InnerText));
         }
         public DateTime Inicio
@@ -189,7 +192,9 @@ namespace CronosHistory_UWP
             XmlDocument xmlDoc = new XmlDocument();
             string nodo = "<ItemHistory>";
             nodo += "<FechaInicio>" + Inicio.Ticks + "</FechaInicio>";
-            nodo += "<Descripcion>" + Contenido.EscaparCaracteresXML() + "</Descripcion>";
+            if (String.IsNullOrEmpty(Contenido))
+                nodo += "<Descripcion>" + Contenido.EscaparCaracteresXML() + "</Descripcion>";
+            else nodo += "</Descripcion>";
             nodo += "<Tiempo>" + Tiempo.Ticks + "</Tiempo>";
             nodo += "</ItemHistory>";
             xmlDoc.InnerXml = nodo;

@@ -115,7 +115,7 @@ namespace CronosHistory_Uwp
                 items = todosLosItems;//restauro los items que tenia
                 for (int i = 0; i < todosLosItems.Count; i++)
                 {
-                   
+
                     item = new ItemCronos(todosLosItems[i]);
                     itemsControls.Add(item);
                     stkTiempos.Children.Add(item);
@@ -123,6 +123,7 @@ namespace CronosHistory_Uwp
                 }
                 ActualizaBackGroundItems();
             }
+            else if (!EstaCargado) LoadXml();
 
         }
 
