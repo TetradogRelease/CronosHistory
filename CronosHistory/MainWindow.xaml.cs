@@ -96,8 +96,8 @@ namespace CronosHistory
         private void btnAñadir_ChangeIndex(object sender, Gabriel.Cat.Wpf.ToggleButtonArgs e)
         {
             ItemCronos newItem = new ItemCronos();
-            items.Insert(0, newItem);
-            stkTiempos.Children.Insert(0, newItem);
+            items.Add( newItem);
+            stkTiempos.Children.Add(newItem);
             ActualizaBackGroundItems();
         }
 
