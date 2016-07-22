@@ -11,13 +11,13 @@
 
     <Grid Background="Black">
         <Grid.RowDefinitions>
-            <RowDefinition Height="41"/>
-            <RowDefinition MinHeight="340"/>
-            <RowDefinition Height="34"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="340*"/>
+            <RowDefinition Height="34*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="300" Width="278*"/>
-            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="400*"/>
+            <ColumnDefinition Width="150*"/>
         </Grid.ColumnDefinitions>
 
         <Image Grid.Column="1" Grid.Row="1" x:Name="imgReloj" />
@@ -32,8 +32,8 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="226*"/>
-                <ColumnDefinition Width="72"/>
-                <ColumnDefinition Width="72"/>
+                <ColumnDefinition Width="72*"/>
+                <ColumnDefinition Width="72*"/>
             </Grid.ColumnDefinitions>
 
             <uwp:ToggleButton x:Name="btnQuitarOOK" Grid.Column="1"  ChangeIndex="btnQuitarOOK_ChangeIndex" />
