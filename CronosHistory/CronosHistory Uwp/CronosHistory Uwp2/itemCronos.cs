@@ -12,6 +12,9 @@ namespace CronosHistory_UWP
 
     public class itemCronos
     {
+        static int TotalItemsOn = 0;
+        public static int MaxTotalOnMobile = 2;
+        public static event EventHandler MaxItemsOn;
         string texto;
         Llista<itemHistory> historial;
         #region ContadorTiempo
@@ -43,9 +46,12 @@ namespace CronosHistory_UWP
                 
                 if(!EstaOn&&value)
                 {
-                    estaOn = true;
-                    tskContadorTiempo = new Task(actContadorTiempo);
-                    tskContadorTiempo.Start();
+                    if (MaxItemsOn == null || TotalItemsOn <= MaxTotalOnMobile)
+                    {
+                        estaOn = true;
+                        tskContadorTiempo = new Task(actContadorTiempo);
+                        tskContadorTiempo.Start();
+                    }
 
                 }
                 else if(EstaOn)
@@ -54,6 +60,10 @@ namespace CronosHistory_UWP
                     historial.Afegir(new itemHistory(DateTime.Now - inicioTiempo));
 
                 }
+                if (EstaOn)TotalItemsOn++;
+                else TotalItemsOn--;
+                if ( TotalItemsOn<= MaxTotalOnMobile && MaxItemsOn != null)
+                    MaxItemsOn(this, new EventArgs());
             }
         }
         public string Descripcion

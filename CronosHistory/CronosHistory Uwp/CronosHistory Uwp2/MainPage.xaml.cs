@@ -86,6 +86,11 @@ namespace CronosHistory_Uwp
             {
                 try
                 {
+                    if(Dispositivo.ObtenerTipoDispositivo()!=TipoDispositivo.Escritorio)
+                    itemCronos.MaxItemsOn += (s, e) =>
+                    {
+                        MessageBox.Show("No se puede poner tantos a la vez si no es un PC");
+                    };
                     xml = new System.Xml.XmlDocument();
                     xml.Load(folder, nombreArchivo);
                     itemsCargados = itemCronos.LoadXml(xml);
@@ -120,6 +125,7 @@ namespace CronosHistory_Uwp
                     itemsControls.Add(item);
                     stkTiempos.Children.Add(item);
                     item.OpenHistory += OpenHistoryEvent;
+                    item.EstaEncendido = todosLosItems[i].EstaOn;
                 }
                 ActualizaBackGroundItems();
             }
