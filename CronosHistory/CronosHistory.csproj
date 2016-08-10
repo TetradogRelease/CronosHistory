@@ -39,10 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gabriel.Cat.Utilitats">
-      <HintPath>..\..\gabriel.cat.utilitats\Gabriel.Cat.Utilitats\bin\Release\Gabriel.Cat.Utilitats.dll</HintPath>
+      <HintPath>C:\Users\pc\Desktop\Programas\Gabriel.Cat.Utilitats\Gabriel.Cat.Utilitats\bin\Release\Gabriel.Cat.Utilitats.dll</HintPath>
     </Reference>
     <Reference Include="Gabriel.Cat.Wpf">
-      <HintPath>..\..\gabriel.cat.wpf\Gabriel.Cat.Wpf\bin\Release\Gabriel.Cat.Wpf.dll</HintPath>
+      <HintPath>C:\Users\pc\Desktop\Programas\Gabriel.Cat.Wpf\Gabriel.Cat.Wpf\bin\Release\Gabriel.Cat.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

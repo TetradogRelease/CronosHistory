@@ -87,8 +87,8 @@ namespace CronosHistory
 
         private void ActualizaBackGroundItems()
         {
-            for (int i = 0; i < stkTiempos.Children.Count; i++)
-                if (i % 2 == 0)
+            for (int i = stkTiempos.Children.Count-1,f=0; i >=0 ; i--,f++)
+                if (f % 2 == 0)
                     ((ItemCronos)stkTiempos.Children[i]).Background = Brushes.LightBlue;
                 else ((ItemCronos)stkTiempos.Children[i]).Background = Brushes.White;
         }
@@ -96,8 +96,8 @@ namespace CronosHistory
         private void btnAñadir_ChangeIndex(object sender, Gabriel.Cat.Wpf.ToggleButtonArgs e)
         {
             ItemCronos newItem = new ItemCronos();
-            items.Add( newItem);
-            stkTiempos.Children.Add(newItem);
+            items.Insert(0, newItem);
+            stkTiempos.Children.Insert(0,newItem);
             ActualizaBackGroundItems();
         }
 
