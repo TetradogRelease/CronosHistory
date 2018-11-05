@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using Gabriel.Cat.Extension;
+using Gabriel.Cat.S.Extension;
+
 namespace CronosHistory
 {
     /// <summary>
@@ -102,12 +104,18 @@ namespace CronosHistory
         public XmlNode ToXmlNode()
         {
             XmlDocument xmlDoc = new XmlDocument();
-            text nodo = "<ItemHistory>";
-            nodo &= (text)"<FechaInicio>" & Inicio.Ticks & "</FechaInicio>";
-            nodo&= (text)"<Descripcion>" & RichDescription.EscaparCaracteresXML() & "</Descripcion>";
-            nodo &= (text)"<Tiempo>" & Tiempo.Ticks & "</Tiempo>";
-            nodo &= "</ItemHistory>";
-            xmlDoc.InnerXml = nodo;
+            StringBuilder nodo =new StringBuilder( "<ItemHistory>");
+            nodo.Append("<FechaInicio>");
+            nodo.Append(Inicio.Ticks);
+            nodo.Append("</FechaInicio>") ;
+            nodo.Append("<Descripcion>");
+            nodo.Append(RichDescription.EscaparCaracteresXML());
+            nodo.Append("</Descripcion>"); ;
+            nodo.Append("<Tiempo>");
+            nodo.Append(Tiempo.Ticks);
+            nodo.Append("</Tiempo>");
+            nodo.Append("</ItemHistory>");
+            xmlDoc.InnerXml = nodo.ToString();
             return xmlDoc.FirstChild;
         }
         public static void AddItemsXml(HistoryTime parent,XmlNode nodoItemCronos)

@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gabriel.Cat.Extension;
+using Gabriel.Cat.S.Extension;
+
 namespace CronosHistory
 {
     /// <summary>
@@ -35,10 +37,10 @@ namespace CronosHistory
             InitializeComponent();
             LoadXml();
             Closing += SaveXml;
-            btnAñadir.ImagenesButton.Afegir(Imagenes.CronosPlus.ToImage());
+            btnAñadir.ImagenesButton.Add(Imagenes.CronosPlus.ToImage());
            
-            btnQuitarOOK.ImagenesButton.Afegir(Imagenes.CronosMinus.ToImage());
-            btnQuitarOOK.ImagenesButton.Afegir(Imagenes.CronosOK.ToImage());
+            btnQuitarOOK.ImagenesButton.Add(Imagenes.CronosMinus.ToImage());
+            btnQuitarOOK.ImagenesButton.Add(Imagenes.CronosOK.ToImage());
             btnQuitarOOK.Index = 0;
             imgBarra2.SetImage(Imagenes.barra);
             imgReloj.SetImage(Imagenes.reloj);
@@ -116,7 +118,8 @@ namespace CronosHistory
                         itemsPerTreure.Add(item);
 
                 }
-                items.RemoveRange(itemsPerTreure);
+                for(int i=0;i< itemsPerTreure.Count;i++)
+                   items.Remove(itemsPerTreure[i]);
                 stkTiempos.Children.RemoveRange(itemsPerTreure);
                 ActualizaBackGroundItems();
             }

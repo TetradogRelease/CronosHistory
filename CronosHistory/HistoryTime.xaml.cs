@@ -72,11 +72,11 @@ namespace CronosHistory
         public XmlNode ToNodoXml()
         {
             XmlDocument xmlDoc = new XmlDocument();
-            text nodo = "<HistoryCronos>";
+            StringBuilder nodo =new StringBuilder( "<HistoryCronos>");
             for (int i = 0; i < stkHistorial.Children.Count; i++)
-                nodo &= (stkHistorial.Children[i] as ItemHistorialTime).ToXmlNode().OuterXml;
-            nodo &= "</HistoryCronos>";
-            xmlDoc.InnerXml = nodo;
+                nodo.Append( (stkHistorial.Children[i] as ItemHistorialTime).ToXmlNode().OuterXml);
+            nodo.Append("</HistoryCronos>");
+            xmlDoc.InnerXml = nodo.ToString();
             xmlDoc.Normalize();
             return xmlDoc.FirstChild;
         }

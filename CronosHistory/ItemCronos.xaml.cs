@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
+using Gabriel.Cat.S.Extension;
 using Gabriel.Cat.Extension;
 using System.IO;
 
@@ -66,16 +67,16 @@ namespace CronosHistory
             }
             set
             {
-                btnHistoryOrDelete.ImagenesButton.Buida();
+                btnHistoryOrDelete.ImagenesButton.Clear();
                 if(value)
                 {
                         
-                  btnHistoryOrDelete.ImagenesButton.Afegir(imgHistorial);
+                  btnHistoryOrDelete.ImagenesButton.Add(imgHistorial);
                     
                 }
                 else
                 {
-                    btnHistoryOrDelete.ImagenesButton.AfegirMolts(imgsEliminar);
+                    btnHistoryOrDelete.ImagenesButton.AddRange(imgsEliminar);
                 }
                 estaVisibleElHistorial = value;
                 btnHistoryOrDelete.Index = btnHistoryOrDelete.Index;
@@ -170,11 +171,11 @@ namespace CronosHistory
         public static XmlDocument ToXml(ItemCronos[] items)
         {
             XmlDocument xmlDoc = new XmlDocument();
-            text doc = "<CronosHistory>";
+            StringBuilder doc =new StringBuilder("<CronosHistory>");
             for (int i = 0; i < items.Length; i++)
-                doc &= items[i].ToNodoXml().OuterXml;
-            doc &= "</CronosHistory>";
-            xmlDoc.InnerXml = doc;
+                doc.Append(items[i].ToNodoXml().OuterXml);
+            doc.Append("</CronosHistory>");
+            xmlDoc.InnerXml = doc.ToString();
             xmlDoc.Normalize();
             return xmlDoc;
         }
