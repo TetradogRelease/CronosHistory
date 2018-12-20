@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gabriel.Cat.Extension;
 using Gabriel.Cat.S.Extension;
+using Gabriel.Cat.Wpf;
 
 namespace CronosHistory
 {
@@ -31,14 +32,15 @@ namespace CronosHistory
 
         public MainWindow()
         {
+
             Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
             IsClosing = false;
             items = new List<ItemCronos>();
             InitializeComponent();
             LoadXml();
             Closing += SaveXml;
-            btnAñadir.ImagenesButton.Add(Imagenes.CronosPlus.ToImage());
-           
+
+            btnAñadir.ImagenesButton.Add(Imagenes.CronosPlus.ToImage());  
             btnQuitarOOK.ImagenesButton.Add(Imagenes.CronosMinus.ToImage());
             btnQuitarOOK.ImagenesButton.Add(Imagenes.CronosOK.ToImage());
             btnQuitarOOK.Index = 0;

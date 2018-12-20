@@ -15,21 +15,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,10 +41,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Gabriel.Cat.S.Utilitats, Version=1.0.4.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gabriel.Cat.S.Utilitats.1.0.4.3-preview1.0.12\lib\netstandard2.0\Gabriel.Cat.S.Utilitats.dll</HintPath>
+      <HintPath>..\packages\Gabriel.Cat.S.Utilitats.1.0.4.4-preview1.0.0\lib\netstandard2.0\Gabriel.Cat.S.Utilitats.dll</HintPath>
     </Reference>
-    <Reference Include="Gabriel.Cat.Wpf, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Gabriel.Cat.Wpf.1.0.1.2\lib\net471\Gabriel.Cat.Wpf.dll</HintPath>
+    <Reference Include="Gabriel.Cat.Wpf, Version=1.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gabriel.Cat.Wpf.1.1.3\lib\net471\Gabriel.Cat.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
